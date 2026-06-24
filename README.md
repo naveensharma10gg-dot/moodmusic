@@ -1,10 +1,10 @@
-# Mood Tunes - AI Mood Music Player by Naveen Sharma
+# EcoWavE - AI Mood Music Player by Naveen Sharma
 
-Mood Tunes is Naveen Sharma's AI mood music player for discovering Punjabi songs, saving favorites, creating playlists, and getting music recommendations by mood. The project is built with Python, Streamlit, SQLite/MySQL, and a lightweight recommendation scorer.
+EcoWavE is Naveen Sharma's AI mood music player for discovering Punjabi songs, saving favorites, creating playlists, and getting music recommendations by mood. The project is built with Python, Streamlit, SQLite/MySQL, and a lightweight recommendation scorer.
 
 Live app: https://naveensharma10gg-dot-moodmusic-app-5cpsl4.streamlit.app
 
-Search name: Mood Tunes AI Mood Music Player by Naveen Sharma
+Search name: EcoWavE AI Mood Music Player by Naveen Sharma
 
 ## Features
 
@@ -29,7 +29,7 @@ Search name: Mood Tunes AI Mood Music Player by Naveen Sharma
 Copy-Item .streamlit\secrets.toml.example .streamlit\secrets.toml
 ```
 
-## Run Locally
+## Run
 
 ```powershell
 .venv\Scripts\python.exe -m streamlit run app.py
@@ -43,6 +43,11 @@ python -m venv .venv
 .venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-## Deploy
+## Mobile App Mode
 
-See `DEPLOYMENT.md`.
+EcoWavE is optimized for phone screens and can be used like a mobile app:
+
+1. Start the app on your computer.
+2. Make sure your phone and computer are on the same Wi-Fi.
+3. Open the mobile link shown in the app sidebar, such as `http://YOUR-COMPUTER-IP:8501`.
+4. Use your phone browser menu to choose **Add to Home Screen**.

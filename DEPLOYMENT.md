@@ -1,8 +1,8 @@
-# Mood Tunes Deployment Guide
+# EcoWavE Deployment Guide
 
 ## Recommended path: Streamlit Community Cloud
 
-Mood Tunes is a Streamlit app, so the simplest deployment path is Streamlit Community Cloud.
+EcoWavE is a Streamlit app, so the simplest deployment path is Streamlit Community Cloud.
 
 ## Files needed in GitHub
 

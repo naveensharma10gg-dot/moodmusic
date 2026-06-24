@@ -23,10 +23,10 @@ from streamlit_cookies_controller import CookieController
 from yt_dlp import YoutubeDL
 
 
-APP_TITLE = "Mood Tunes"
-SEO_TITLE = "Mood Tunes - AI Mood Music Player by Naveen Sharma"
+APP_TITLE = "EcoWavE"
+SEO_TITLE = "EcoWavE - AI Mood Music Player by Naveen Sharma"
 SEO_DESCRIPTION = (
-    "Mood Tunes is Naveen Sharma's AI mood music player for discovering Punjabi songs, "
+    "EcoWavE is Naveen Sharma's AI mood music player for discovering Punjabi songs, "
     "saving favorites, creating playlists, and getting music recommendations by mood."
 )
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -67,10 +67,10 @@ def image_data_uri(path):
     return f"data:image/png;base64,{encoded}"
 
 
-def logo_img_html(class_name="brand-logo", alt="Mood Tunes logo"):
+def logo_img_html(class_name="brand-logo", alt="EcoWavE logo"):
     uri = image_data_uri(LOGO_PATH)
     if not uri:
-        return '<div class="brand-logo-fallback">MT</div>'
+        return '<div class="brand-logo-fallback">EW</div>'
     return f'<img class="{class_name}" src="{uri}" alt="{html.escape(alt)}" />'
 
 
@@ -826,7 +826,7 @@ MOOD_EXPANSION_TRACKS = build_mood_expansion()
 SEED_SONGS = PUNJABI_HITS + MORE_PUNJABI_ARTIST_TRACKS + ALBUM_TRACK_SEED_SONGS + MOOD_EXPANSION_TRACKS
 
 
-st.set_page_config(page_title=SEO_TITLE, page_icon="MT", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title=SEO_TITLE, page_icon="EW", layout="wide", initial_sidebar_state="collapsed")
 
 
 def inject_styles():
@@ -1548,7 +1548,7 @@ def inject_styles():
             }
         }
 
-        /* Mood Tunes studio refresh */
+        /* EcoWavE studio refresh */
         :root {
             --ink: #f9fbf7;
             --panel: rgba(12, 14, 18, .86);
@@ -1757,7 +1757,7 @@ def inject_styles():
             font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
         }
         .startup-popup::after {
-            content: "MT";
+            content: "EW";
             position: absolute;
             right: -18px;
             top: -24px;
@@ -3362,7 +3362,7 @@ def inject_styles():
             }
         }
 
-        /* Mood Tunes streaming-app polish, intentionally distinct branding */
+        /* EcoWavE streaming-app polish, intentionally distinct branding */
         body {
             background: #000 !important;
         }
@@ -3670,7 +3670,7 @@ def mobile_install_hint():
         f"""
         <div class="mobile-install">
             <strong>Permanent project link</strong>
-            <span>On this computer, always open <b>{local_app_url()}</b> after starting Mood Tunes.</span>
+            <span>On this computer, always open <b>{local_app_url()}</b> after starting EcoWavE.</span>
         </div>
         """,
         unsafe_allow_html=True,
@@ -3704,7 +3704,7 @@ def app_splash_screen():
     logo_html = logo_img_html("splash-logo")
     st.markdown(
         f"""
-        <div class="spotify-splash" role="status" aria-label="Opening Mood Tunes">
+        <div class="spotify-splash" role="status" aria-label="Opening EcoWavE">
             <div class="splash-logo-wrap">
                 {logo_html}
                 <div class="splash-loader"><span></span></div>
@@ -3721,7 +3721,7 @@ def animated_welcome():
     logo_html = logo_img_html("hero-logo")
     st.markdown(
         f"""
-        <section class="welcome-stage" aria-label="Animated welcome to Mood Tunes">
+        <section class="welcome-stage" aria-label="Animated welcome to EcoWavE">
             <div class="welcome-copy">
                 <div class="brand-lockup">
                     {logo_html}
@@ -3736,7 +3736,7 @@ def animated_welcome():
             </div>
             <div class="welcome-player" aria-hidden="true">
                 <div class="record-wrap">
-                    <div class="record-label">MT</div>
+                    <div class="record-label">EW</div>
                 </div>
                 <div class="welcome-trackline">Finding your first mood match</div>
                 <div class="visualizer">
@@ -3761,13 +3761,13 @@ def startup_popup():
             <div class="startup-card">
                 <div class="startup-popup">
                     {logo_html}
-                    <div class="startup-kicker">Mood Tunes Studio</div>
+                    <div class="startup-kicker">EcoWavE Studio</div>
                     <h2>Start your music mood journey</h2>
-                    <p>Pick a mood, discover Punjabi tracks, save favorites, and let Mood Tunes keep your listening history ready.</p>
+                    <p>Pick a mood, discover Punjabi tracks, save favorites, and let EcoWavE keep your listening history ready.</p>
                     <div class="startup-grid">
                         <div class="startup-feature"><span class="feature-icon">PL</span>Playlists<span>Create mixes and play songs in order.</span></div>
                         <div class="startup-feature"><span class="feature-icon">ON</span>Online Music<span>Search fresh tracks separately.</span></div>
-                        <div class="startup-feature"><span class="feature-icon">FR</span>Free<span>Use Mood Tunes without paid access.</span></div>
+                        <div class="startup-feature"><span class="feature-icon">FR</span>Free<span>Use EcoWavE without paid access.</span></div>
                         <div class="startup-feature"><span class="feature-icon">AD</span>Ad Free<span>Listen without ad breaks inside the app.</span></div>
                     </div>
                 </div>
@@ -3775,7 +3775,7 @@ def startup_popup():
         unsafe_allow_html=True,
     )
     with st.form("startup_enter_form", clear_on_submit=False):
-        entered = st.form_submit_button("Enter Mood Tunes", use_container_width=True)
+        entered = st.form_submit_button("Enter EcoWavE", use_container_width=True)
     st.markdown("</div></div>", unsafe_allow_html=True)
     if entered:
         st.session_state.startup_popup_seen = True
@@ -3791,10 +3791,10 @@ def login_success_animation(user):
         <div class="login-burst" role="status" aria-live="polite">
             <div class="login-card">
                 <div class="login-orbit">
-                    <div class="login-note">MT</div>
+                    <div class="login-note">EW</div>
                 </div>
                 <h2>Welcome back, {name}</h2>
-                <p>{role} account unlocked. Your Mood Tunes dashboard is tuning up now.</p>
+                <p>{role} account unlocked. Your EcoWavE dashboard is tuning up now.</p>
                 <div class="visualizer" aria-hidden="true">
                     <span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span>
@@ -4284,7 +4284,7 @@ def profile_image_html(user, size=84):
             f'alt="{html.escape(user["name"])} profile picture" '
             f'style="width:{size}px;height:{size}px;" />'
         )
-    initials = "".join(part[:1] for part in str(user["name"]).split()[:2]).upper() or "MT"
+    initials = "".join(part[:1] for part in str(user["name"]).split()[:2]).upper() or "EW"
     return f'<div class="profile-avatar-fallback" style="width:{size}px;height:{size}px;">{html.escape(initials)}</div>'
 
 
@@ -4654,7 +4654,7 @@ def audio_mime_type(url):
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def download_audio_bytes(url):
-    request = urllib.request.Request(url, headers={"User-Agent": "MoodTunes/1.0"})
+    request = urllib.request.Request(url, headers={"User-Agent": "EcoWavE/1.0"})
     with urllib.request.urlopen(request, timeout=30) as response:
         return response.read()
 
@@ -5254,9 +5254,9 @@ def song_logo_html(source_url, title="", artist="", mood="", cover_url=""):
     ]
     seed = sum(ord(ch) for ch in f"{artist}{title}{mood}") or 1
     c1, c2, c3 = palette[seed % len(palette)]
-    words = str(artist or title or "Mood Tunes").split()
-    initials = "".join(word[:1] for word in words[:2]).upper() or "MT"
-    source_tag = "ON" if is_online_audio_source(source_url) else "MT"
+    words = str(artist or title or "EcoWavE").split()
+    initials = "".join(word[:1] for word in words[:2]).upper() or "EW"
+    source_tag = "ON" if is_online_audio_source(source_url) else "EW"
     return f"""
         <div class="album-art creative-cover" style="--cover-a:{c1};--cover-b:{c2};--cover-c:{c3};">
             <div class="cover-ring"></div>
@@ -5597,7 +5597,7 @@ def playlists_section(user):
         st.rerun()
 
     if tracks.empty:
-        st.info("This playlist is empty. Add songs from Mood Music, All Songs, or Saved.")
+        st.info("This playlist is empty. Add songs from EcoWavE Music, All Songs, or Saved.")
         return
 
     render_playlist_player(tracks, playlist_name)
@@ -5658,7 +5658,7 @@ def artists_albums_section(user):
         """
         <div class="section-intro">
             <h2>Artists & Albums</h2>
-            <p>Browse Punjabi artists, albums, and songs from your Mood Tunes library.</p>
+            <p>Browse Punjabi artists, albums, and songs from your EcoWavE library.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -5717,7 +5717,7 @@ def section_nav(state_key, sections, label="Section"):
         "History": "↺",
         "Add Music": "+",
         "Profile": "◉",
-        "Mood Music": "♫",
+        "EcoWavE Music": "♫",
         "Online Music": "⌁",
         "Library": "▤",
         "Analytics": "▥",
@@ -5773,13 +5773,13 @@ def user_interface(user):
     )
     st.write("")
     if page == "Search":
-        search_page = section_nav2("search_page", ["Mood Music", "Online Music"], "Search section")
-        if search_page == "Mood Music":
+        search_page = section_nav2("search_page", ["EcoWavE Music", "Online Music"], "Search section")
+        if search_page == "EcoWavE Music":
             st.markdown(
                 """
                 <div class="section-intro">
-                    <h2>Mood Music</h2>
-                    <p>Recommendations from your Mood Tunes library, ranked by mood, favorites, and search intent.</p>
+                    <h2>EcoWavE Music</h2>
+                    <p>Recommendations from your EcoWavE library, ranked by mood, favorites, and search intent.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -5805,7 +5805,7 @@ def user_interface(user):
                 """
                 <div class="section-intro online">
                     <h2>Online Music</h2>
-                    <p>Search online tracks separately, then play or save discoveries into your Mood Tunes history.</p>
+                    <p>Search online tracks separately, then play or save discoveries into your EcoWavE history.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
