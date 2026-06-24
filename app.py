@@ -68,10 +68,28 @@ def logo_img_html(class_name="brand-logo", alt="Mood Tunes logo"):
         return '<div class="brand-logo-fallback">MT</div>'
     return f'<img class="{class_name}" src="{uri}" alt="{html.escape(alt)}" />'
 
+
+def show_private_admin_login():
+    if os.getenv("MOOD_TUNES_SHOW_ADMIN_LOGIN") == "1":
+        return True
+    try:
+        return bool(st.secrets.get("show_admin_login", False))
+    except Exception:
+        return False
+
+
+def show_public_demo_account():
+    if os.getenv("MOOD_TUNES_SHOW_DEMO_ACCOUNT") == "1":
+        return True
+    try:
+        return bool(st.secrets.get("show_demo_account", False))
+    except Exception:
+        return False
+
 SEED_USERS = [
     ("Admin", "admin@moodtunes.local", "admin123", "admin", "Energetic", "Library manager"),
-    ("Demo Listener", "user@moodtunes.local", "user123", "user", "Happy", "Mood explorer"),
 ]
+PUBLIC_DEMO_USER = ("Demo Listener", "user@moodtunes.local", "user123", "user", "Happy", "Mood explorer")
 
 MOOD_LIBRARY = {
     "Happy": {
@@ -4073,7 +4091,13 @@ def ensure_song_cover_column():
 
 
 def seed_data():
-    for name, email, password, role, mood, bio in SEED_USERS:
+    seed_users = list(SEED_USERS)
+    if show_public_demo_account():
+        seed_users.append(PUBLIC_DEMO_USER)
+    else:
+        execute("DELETE FROM users WHERE email=%s AND role='user'", (PUBLIC_DEMO_USER[1],))
+
+    for name, email, password, role, mood, bio in seed_users:
         execute(
             """
             INSERT INTO users (name, email, password_hash, role, favorite_mood, bio)
@@ -5876,14 +5900,20 @@ def admin_interface(user):
 
 
 def auth_screen(cookies):
-    user_tab, admin_tab, signup_tab = st.tabs(["User Login", "Admin Login", "Create User"])
-    with user_tab:
+    show_admin = show_private_admin_login()
+    tab_names = ["User Login"]
+    if show_admin:
+        tab_names.append("Admin Login")
+    tab_names.append("Create Account")
+    tabs = dict(zip(tab_names, st.tabs(tab_names)))
+
+    with tabs["User Login"]:
         st.subheader("User Login")
         with st.form("user_login_form"):
-            email = st.text_input("User email", value="user@moodtunes.local")
-            password = st.text_input("User password", value="user123", type="password")
+            email = st.text_input("User email", value="", placeholder="you@example.com")
+            password = st.text_input("User password", value="", type="password")
             remember = st.checkbox("Keep me logged in", value=True, key="remember_user_login")
-            submitted = st.form_submit_button("Login as User")
+            submitted = st.form_submit_button("Login")
             if submitted:
                 ok, message = login_user(email, password, expected_role="user")
                 if ok:
@@ -5891,23 +5921,24 @@ def auth_screen(cookies):
                         remember_user(st.session_state.user, cookies)
                     st.rerun()
                 st.error(message)
-        st.caption("Demo user: user@moodtunes.local / user123")
-    with admin_tab:
-        st.subheader("Admin Login")
-        with st.form("admin_login_form"):
-            email = st.text_input("Admin email", value="admin@moodtunes.local")
-            password = st.text_input("Admin password", value="admin123", type="password")
-            remember = st.checkbox("Keep me logged in", value=True, key="remember_admin_login")
-            submitted = st.form_submit_button("Login as Admin")
-            if submitted:
-                ok, message = login_user(email, password, expected_role="admin")
-                if ok:
-                    if remember:
-                        remember_user(st.session_state.user, cookies)
-                    st.rerun()
-                st.error(message)
-        st.caption("Demo admin: admin@moodtunes.local / admin123")
-    with signup_tab:
+
+    if show_admin:
+        with tabs["Admin Login"]:
+            st.subheader("Admin Login")
+            with st.form("admin_login_form"):
+                email = st.text_input("Admin email", value="", placeholder="admin@example.com")
+                password = st.text_input("Admin password", value="", type="password")
+                remember = st.checkbox("Keep me logged in", value=True, key="remember_admin_login")
+                submitted = st.form_submit_button("Login as Admin")
+                if submitted:
+                    ok, message = login_user(email, password, expected_role="admin")
+                    if ok:
+                        if remember:
+                            remember_user(st.session_state.user, cookies)
+                        st.rerun()
+                    st.error(message)
+
+    with tabs["Create Account"]:
         st.subheader("Create account")
         with st.form("signup_form"):
             name = st.text_input("Full name")
