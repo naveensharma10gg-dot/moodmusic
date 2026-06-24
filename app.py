@@ -3659,6 +3659,476 @@ def inject_styles():
                 max-width: none;
             }
         }
+        .ew-topbar {
+            position: fixed;
+            inset: 0 0 auto 0;
+            height: 66px;
+            z-index: 999;
+            background: #000;
+            display: grid;
+            grid-template-columns: 180px minmax(320px, 680px) 1fr;
+            align-items: center;
+            gap: 18px;
+            padding: 0 26px;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+        .ew-window-dots {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+        .ew-window-dots span {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #f5f5f5;
+        }
+        .ew-top-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ew-home {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #1f1f1f;
+            color: #fff;
+            font-size: 1.55rem;
+            font-weight: 950;
+        }
+        .ew-search-pill {
+            min-height: 56px;
+            border-radius: 999px;
+            background: #1f1f1f;
+            color: #b3b3b3;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 18px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+        }
+        .ew-search-pill .ew-search-icon {
+            font-size: 1.65rem;
+            color: #fff;
+        }
+        .ew-user-dot {
+            justify-self: end;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #1ed760;
+            color: #000;
+            font-weight: 1000;
+            box-shadow: 0 0 0 8px #121212;
+        }
+        .ew-left-rail {
+            position: fixed;
+            left: 0;
+            top: 66px;
+            bottom: 94px;
+            width: 84px;
+            z-index: 998;
+            background: #000;
+            padding: 0 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .ew-rail-card {
+            flex: 1;
+            min-height: 0;
+            border-radius: 8px;
+            background: #121212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            padding: 22px 0;
+            overflow: hidden;
+        }
+        .ew-rail-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: #242424;
+            font-size: 1.45rem;
+            font-weight: 900;
+        }
+        .ew-rail-icon.active {
+            background: linear-gradient(135deg, #5a38ff, #b0ffe4);
+        }
+        .ew-rail-cover {
+            width: 58px;
+            height: 58px;
+            border-radius: 8px;
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(0,0,0,.45);
+        }
+        .ew-now-panel {
+            position: fixed;
+            right: 20px;
+            top: 67px;
+            bottom: 96px;
+            width: min(505px, 28vw);
+            z-index: 997;
+            border-radius: 8px;
+            background: #121212;
+            color: #fff;
+            padding: 28px 20px;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+        }
+        .ew-now-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.12rem;
+            font-weight: 950;
+            margin-bottom: 24px;
+            text-decoration: underline;
+        }
+        .ew-now-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #050505;
+            box-shadow: 0 18px 48px rgba(0,0,0,.36);
+        }
+        .ew-now-song {
+            margin-top: 22px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            gap: 14px;
+            align-items: center;
+        }
+        .ew-now-song strong {
+            display: block;
+            font-size: 1.55rem;
+            line-height: 1.06;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ew-now-song span {
+            color: #b3b3b3;
+            font-weight: 800;
+        }
+        .ew-now-action {
+            color: #b3b3b3;
+            font-size: 1.8rem;
+        }
+        .ew-artist-card {
+            margin-top: 34px;
+            border-radius: 8px;
+            min-height: 180px;
+            padding: 22px;
+            background:
+                linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.72)),
+                url("https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.05rem;
+            font-weight: 950;
+        }
+        .ew-bottom-player {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 94px;
+            z-index: 1000;
+            background: #000;
+            color: #fff;
+            display: grid;
+            grid-template-columns: 330px minmax(360px, 1fr) 330px;
+            align-items: center;
+            gap: 20px;
+            padding: 0 20px;
+            border-top: 1px solid rgba(255,255,255,.04);
+        }
+        .ew-bottom-track {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+        .ew-bottom-track img {
+            width: 64px;
+            height: 64px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        .ew-bottom-track strong,
+        .ew-bottom-track span {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .ew-bottom-track span {
+            color: #b3b3b3;
+            font-size: .86rem;
+            font-weight: 800;
+        }
+        .ew-player-center {
+            display: grid;
+            gap: 10px;
+            justify-items: center;
+        }
+        .ew-controls {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            color: #b3b3b3;
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+        .ew-play {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #fff;
+            color: #000;
+            font-size: 1.25rem;
+        }
+        .ew-progress {
+            display: grid;
+            grid-template-columns: 42px minmax(220px, 620px) 42px;
+            align-items: center;
+            gap: 10px;
+            width: min(720px, 100%);
+            color: #b3b3b3;
+            font-size: .78rem;
+            font-weight: 800;
+        }
+        .ew-progress-line {
+            height: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #fff 0 54%, #4d4d4d 54% 100%);
+        }
+        .ew-device-controls {
+            justify-self: end;
+            color: #b3b3b3;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 1.25rem;
+        }
+        body, .stApp {
+            background: #000 !important;
+        }
+        [data-testid="stSidebar"] {
+            display: none !important;
+        }
+        section[data-testid="stSidebar"] {
+            display: none !important;
+        }
+        .main .block-container {
+            max-width: none !important;
+            margin-left: 84px !important;
+            margin-right: calc(min(505px, 28vw) + 30px) !important;
+            margin-top: 66px !important;
+            margin-bottom: 94px !important;
+            padding: 20px 32px 120px !important;
+            min-height: calc(100vh - 160px);
+            border-radius: 8px !important;
+            background: linear-gradient(180deg, #151515 0%, #121212 240px, #121212 100%) !important;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+        }
+        .hero {
+            min-height: 200px !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            background:
+                linear-gradient(180deg, rgba(20,20,20,.1), rgba(18,18,18,.9)),
+                #181818 !important;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 22px 48px !important;
+        }
+        .hero h1 {
+            font-size: clamp(2.7rem, 5.5vw, 5.2rem) !important;
+            letter-spacing: -1px !important;
+        }
+        .hero p,
+        .hero-deck,
+        .metric-card {
+            display: none !important;
+        }
+        div[data-testid="stHorizontalBlock"]:has(.metric-card) {
+            display: none !important;
+        }
+        .section-intro {
+            border: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 6px 0 8px !important;
+            margin: 8px 0 14px !important;
+        }
+        .section-intro h2 {
+            font-size: 1.7rem !important;
+            margin: 0 !important;
+        }
+        .section-intro p {
+            display: none !important;
+        }
+        div[data-testid="stTextInput"] input {
+            background: #1f1f1f !important;
+            color: #fff !important;
+            border: 0 !important;
+            border-radius: 999px !important;
+        }
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            background: #1f1f1f !important;
+            color: #fff !important;
+            border: 0 !important;
+            border-radius: 999px !important;
+        }
+        div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
+            border-radius: 999px !important;
+            background: #232323 !important;
+            color: #fff !important;
+            border: 0 !important;
+            box-shadow: none !important;
+        }
+        div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover {
+            background: #2f2f2f !important;
+            color: #fff !important;
+        }
+        .song-card {
+            border: 0 !important;
+            border-radius: 8px !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 10px 0 0 !important;
+        }
+        .song-card::after {
+            display: none !important;
+        }
+        .track-row {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            align-items: start !important;
+            gap: 12px !important;
+            padding: 14px !important;
+            border-radius: 8px !important;
+            background: transparent !important;
+            min-height: 270px;
+        }
+        .song-card:hover .track-row {
+            background: #1a1a1a !important;
+        }
+        .track-index,
+        .track-album,
+        .track-duration {
+            display: none !important;
+        }
+        .album-mark {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 1 !important;
+            border-radius: 8px !important;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,.35) !important;
+            background: #222 !important;
+        }
+        .album-art {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 8px !important;
+        }
+        .track-main {
+            padding-top: 2px !important;
+            min-width: 0 !important;
+        }
+        .track-main h3 {
+            font-size: 1.15rem !important;
+            line-height: 1.25 !important;
+            white-space: normal !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .song-card .meta {
+            display: block !important;
+            color: #b3b3b3 !important;
+            font-size: .94rem !important;
+            line-height: 1.45 !important;
+        }
+        .song-card .pill {
+            display: none !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] {
+            margin-left: 14px !important;
+            max-width: 150px !important;
+            margin-top: -58px !important;
+            margin-bottom: 26px !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
+            min-height: 34px !important;
+            width: 48px !important;
+            max-width: 48px !important;
+            border-radius: 50% !important;
+            background: #1ed760 !important;
+            color: #000 !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stPopover"] button {
+            border-radius: 50% !important;
+            background: transparent !important;
+            color: #b3b3b3 !important;
+            border: 0 !important;
+        }
+        @media (max-width: 1200px) {
+            .ew-now-panel {
+                display: none;
+            }
+            .main .block-container {
+                margin-right: 10px !important;
+            }
+            .ew-bottom-player {
+                grid-template-columns: 260px minmax(260px,1fr) 160px;
+            }
+        }
+        @media (max-width: 760px) {
+            .ew-topbar {
+                grid-template-columns: 1fr;
+                padding: 0 12px;
+            }
+            .ew-window-dots,
+            .ew-user-dot,
+            .ew-left-rail,
+            .ew-device-controls {
+                display: none;
+            }
+            .main .block-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 14px 14px 110px !important;
+            }
+            .ew-bottom-player {
+                grid-template-columns: 1fr;
+                height: 86px;
+            }
+            .ew-player-center {
+                display: none;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -5266,6 +5736,89 @@ def song_logo_html(source_url, title="", artist="", mood="", cover_url=""):
     """
 
 
+def shell_display_track(user):
+    track = None
+    try:
+        history = user_history(user["id"])
+        if not history.empty:
+            track = history.iloc[0].to_dict()
+    except Exception:
+        track = None
+    if not track:
+        try:
+            saved = saved_songs(user["id"])
+            if not saved.empty:
+                track = saved.iloc[0].to_dict()
+        except Exception:
+            track = None
+    if not track:
+        try:
+            library = songs_df()
+            if not library.empty:
+                track = library.iloc[0].to_dict()
+        except Exception:
+            track = None
+    if not track:
+        track = {"title": APP_TITLE, "artist": "Naveen Sharma", "source_url": "", "cover_url": ""}
+    return track
+
+
+def shell_cover_url(track):
+    cover = track.get("cover_url") or resolved_cover_url(track.get("source_url", ""))
+    return cover or image_data_uri(LOGO_PATH)
+
+
+def spotify_style_shell(user):
+    track = shell_display_track(user)
+    title = html.escape(str(track.get("title") or APP_TITLE))
+    artist = html.escape(str(track.get("artist") or "Naveen Sharma"))
+    cover = html.escape(str(shell_cover_url(track)), quote=True)
+    initials = html.escape("".join(part[:1] for part in str(user["name"]).split()[:2]).upper() or "N")
+    rail_items = "".join(f'<img class="ew-rail-cover" src="{cover}" alt="" />' for _ in range(6))
+    st.markdown(
+        f"""
+        <div class="ew-topbar">
+            <div class="ew-window-dots"><span></span><span></span><span></span></div>
+            <div class="ew-top-controls">
+                <div class="ew-home">⌂</div>
+                <div class="ew-search-pill"><span class="ew-search-icon">⌕</span><span>What do you want to play?</span></div>
+            </div>
+            <div class="ew-user-dot">{initials}</div>
+        </div>
+        <div class="ew-left-rail">
+            <div class="ew-rail-card">
+                <div class="ew-rail-icon">▥</div>
+                <div class="ew-rail-icon">＋</div>
+                <div class="ew-rail-icon active">♥</div>
+                {rail_items}
+            </div>
+        </div>
+        <aside class="ew-now-panel">
+            <div class="ew-now-title"><span>{title}</span><span>⋯</span></div>
+            <img class="ew-now-art" src="{cover}" alt="{title} cover" />
+            <div class="ew-now-song">
+                <div><strong>{title}</strong><span>{artist}</span></div>
+                <div class="ew-now-action">⇧</div>
+                <div class="ew-now-action">⊕</div>
+            </div>
+            <div class="ew-artist-card">About the artist</div>
+        </aside>
+        <div class="ew-bottom-player">
+            <div class="ew-bottom-track">
+                <img src="{cover}" alt="{title} cover" />
+                <div><strong>{title}</strong><span>{artist}</span></div>
+            </div>
+            <div class="ew-player-center">
+                <div class="ew-controls"><span>⤨</span><span>◀</span><span class="ew-play">▶</span><span>▶</span><span>▱</span></div>
+                <div class="ew-progress"><span>2:37</span><div class="ew-progress-line"></div><span>3:52</span></div>
+            </div>
+            <div class="ew-device-controls"><span>♬</span><span>☰</span><span>▯</span><span>▰</span></div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def hero(user):
     user_name = html.escape(user["name"])
     logo_html = logo_img_html("hero-logo")
@@ -5390,15 +5943,18 @@ def render_song_list(rows, user, area, empty_message="No songs found.", initial_
     queue_tracks = queue_from_rows(visible_rows)
     saved_ids = saved_song_ids(user["id"])
     for position, (_, row) in enumerate(visible_rows.iterrows(), start=1):
-        render_song_card(
-            row,
-            user,
-            allow_remove=allow_remove,
-            area=area,
-            position=position,
-            queue_tracks=queue_tracks,
-            saved_ids=saved_ids,
-        )
+        if (position - 1) % 4 == 0:
+            grid_cols = st.columns(4)
+        with grid_cols[(position - 1) % 4]:
+            render_song_card(
+                row,
+                user,
+                allow_remove=allow_remove,
+                area=area,
+                position=position,
+                queue_tracks=queue_tracks,
+                saved_ids=saved_ids,
+            )
     if visible_count < len(rows):
         if st.button("Show More Songs", key=f"{area}_show_more", use_container_width=True):
             st.session_state[limit_key] = visible_count + initial_limit
@@ -5754,6 +6310,7 @@ def section_nav2(state_key, sections, label="Section"):
 
 
 def user_interface(user):
+    spotify_style_shell(user)
     hero(user)
     st.write("")
     metric_row(user)
