@@ -3921,6 +3921,17 @@ def inject_styles():
             border-radius: 999px;
             background: linear-gradient(90deg, #fff 0 54%, #4d4d4d 54% 100%);
         }
+        .ew-native-audio {
+            width: min(720px, 100%);
+            height: 42px;
+            accent-color: #1ed760;
+        }
+        .ew-player-hint {
+            color: #b3b3b3;
+            font-size: .86rem;
+            font-weight: 800;
+            text-align: center;
+        }
         .ew-device-controls {
             justify-self: end;
             color: #b3b3b3;
@@ -4032,11 +4043,11 @@ def inject_styles():
             display: grid !important;
             grid-template-columns: 1fr !important;
             align-items: start !important;
-            gap: 10px !important;
-            padding: 12px !important;
+            gap: 9px !important;
+            padding: 10px !important;
             border-radius: 8px !important;
             background: #181818 !important;
-            min-height: 232px;
+            min-height: 214px;
         }
         .song-card:hover .track-row {
             background: #1a1a1a !important;
@@ -4047,7 +4058,7 @@ def inject_styles():
             display: none !important;
         }
         .album-mark {
-            width: min(100%, 160px) !important;
+            width: min(100%, 148px) !important;
             height: auto !important;
             aspect-ratio: 1 !important;
             border-radius: 8px !important;
@@ -4065,7 +4076,7 @@ def inject_styles():
             min-width: 0 !important;
         }
         .track-main h3 {
-            font-size: 1rem !important;
+            font-size: .96rem !important;
             line-height: 1.25 !important;
             white-space: normal !important;
             display: -webkit-box;
@@ -4076,17 +4087,17 @@ def inject_styles():
         .song-card .meta {
             display: block !important;
             color: #b3b3b3 !important;
-            font-size: .86rem !important;
+            font-size: .82rem !important;
             line-height: 1.45 !important;
         }
         .song-card .pill {
             display: none !important;
         }
         .song-card + div[data-testid="stHorizontalBlock"] {
-            margin-left: 12px !important;
-            max-width: 120px !important;
-            margin-top: -6px !important;
-            margin-bottom: 18px !important;
+            margin-left: 10px !important;
+            max-width: 116px !important;
+            margin-top: 0 !important;
+            margin-bottom: 16px !important;
         }
         .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
             min-height: 34px !important;
@@ -5745,6 +5756,17 @@ def song_logo_html(source_url, title="", artist="", mood="", cover_url=""):
 
 
 def shell_display_track(user):
+    queue = st.session_state.get("play_queue") or []
+    if queue:
+        start = int(st.session_state.get("play_queue_start", 0) or 0)
+        start = max(0, min(start, len(queue) - 1))
+        current = queue[start]
+        return {
+            "title": current.get("title", APP_TITLE),
+            "artist": current.get("artist", "Naveen Sharma"),
+            "source_url": current.get("url", ""),
+            "cover_url": current.get("cover_url", ""),
+        }
     track = None
     try:
         history = user_history(user["id"])
@@ -5776,11 +5798,27 @@ def shell_cover_url(track):
     return cover or image_data_uri(LOGO_PATH)
 
 
+def shell_audio_url(track):
+    source_url = str(track.get("source_url") or "")
+    if not source_url:
+        return ""
+    if is_audio_url(source_url):
+        return source_url
+    return ""
+
+
 def spotify_style_shell(user):
     track = shell_display_track(user)
     title = html.escape(str(track.get("title") or APP_TITLE))
     artist = html.escape(str(track.get("artist") or "Naveen Sharma"))
     cover = html.escape(str(shell_cover_url(track)), quote=True)
+    audio_url = shell_audio_url(track)
+    safe_audio_url = html.escape(audio_url, quote=True)
+    player_markup = (
+        f'<audio class="ew-native-audio" controls autoplay src="{safe_audio_url}"></audio>'
+        if safe_audio_url
+        else '<div class="ew-player-hint">Use the green play button on a song card to start playback</div>'
+    )
     initials = html.escape("".join(part[:1] for part in str(user["name"]).split()[:2]).upper() or "N")
     rail_items = "".join(f'<img class="ew-rail-cover" src="{cover}" alt="" />' for _ in range(6))
     st.markdown(
@@ -5817,8 +5855,7 @@ def spotify_style_shell(user):
                 <div><strong>{title}</strong><span>{artist}</span></div>
             </div>
             <div class="ew-player-center">
-                <div class="ew-controls"><span>⤨</span><span>◀</span><span class="ew-play">▶</span><span>▶</span><span>▱</span></div>
-                <div class="ew-progress"><span>2:37</span><div class="ew-progress-line"></div><span>3:52</span></div>
+                {player_markup}
             </div>
             <div class="ew-device-controls"><span>♬</span><span>☰</span><span>▯</span><span>▰</span></div>
         </div>
