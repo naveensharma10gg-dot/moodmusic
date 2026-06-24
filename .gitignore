@@ -14,6 +14,7 @@ docx_media_extract/
 *.docx
 *.pdf
 *.zip
+*.db
 
 .dist/
 .agents/

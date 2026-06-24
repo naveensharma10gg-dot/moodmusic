@@ -6,6 +6,7 @@ import math
 import os
 import re
 import socket
+import sqlite3
 import time
 import urllib.request
 import base64
@@ -3803,6 +3804,36 @@ def mysql_config():
     }
 
 
+def use_sqlite_backend():
+    if os.getenv("MOOD_TUNES_SQLITE") == "1":
+        return True
+    cfg = mysql_config()
+    explicit_mysql = any(
+        os.getenv(name)
+        for name in ("MYSQL_HOST", "MYSQL_USER", "MYSQL_PASSWORD", "MYSQL_DATABASE")
+    )
+    if explicit_mysql:
+        return False
+    try:
+        secret_cfg = dict(st.secrets.get("mysql", {}))
+    except Exception:
+        secret_cfg = {}
+    host = str(cfg.get("host", "")).lower()
+    password = str(cfg.get("password", ""))
+    return host in ("", "localhost", "127.0.0.1") and not password and not secret_cfg
+
+
+def sqlite_db_path():
+    return os.path.join(BASE_DIR, "mood_tunes_streamlit.db")
+
+
+def sqlite_connect():
+    conn = sqlite3.connect(sqlite_db_path(), check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+
 def server_config_without_db():
     cfg = mysql_config()
     cfg.pop("database", None)
@@ -3810,6 +3841,8 @@ def server_config_without_db():
 
 
 def connect_db(create_database=True):
+    if use_sqlite_backend():
+        return sqlite_connect()
     cfg = mysql_config()
     try:
         return pymysql.connect(**cfg)
@@ -3825,8 +3858,57 @@ def connect_db(create_database=True):
         return pymysql.connect(**cfg)
 
 
+def sqlite_statement(sql):
+    statement = sql.strip()
+    duplicate_target = ""
+    if "ON DUPLICATE KEY UPDATE" in statement:
+        if "audio_stream_cache" in statement:
+            duplicate_target = "source_hash"
+        elif "users" in statement:
+            duplicate_target = "email"
+    replacements = [
+        ("AUTO_INCREMENT", "AUTOINCREMENT"),
+        ("MEDIUMTEXT", "TEXT"),
+        ("BOOLEAN", "INTEGER"),
+        ("TRUE", "1"),
+        ("FALSE", "0"),
+        ("NOW()", "CURRENT_TIMESTAMP"),
+        ("INSERT IGNORE", "INSERT OR IGNORE"),
+        ("%s", "?"),
+    ]
+    statement = re.sub(r"role\s+ENUM\('user',\s*'admin'\)", "role TEXT", statement)
+    statement = re.sub(r"UNIQUE\s+KEY\s+\w+\s*\(([^)]+)\)", r"UNIQUE(\1)", statement, flags=re.IGNORECASE)
+    statement = re.sub(r"\s+AFTER\s+\w+", "", statement, flags=re.IGNORECASE)
+    statement = re.sub(r"ON UPDATE CURRENT_TIMESTAMP", "", statement, flags=re.IGNORECASE)
+    if duplicate_target:
+        statement = statement.replace("ON DUPLICATE KEY UPDATE", f"ON CONFLICT({duplicate_target}) DO UPDATE SET")
+    statement = statement.replace("name=VALUES(name)", "name=excluded.name")
+    statement = statement.replace("password_hash=VALUES(password_hash)", "password_hash=excluded.password_hash")
+    statement = statement.replace("role=VALUES(role)", "role=excluded.role")
+    statement = statement.replace("favorite_mood=VALUES(favorite_mood)", "favorite_mood=excluded.favorite_mood")
+    statement = statement.replace("bio=VALUES(bio)", "bio=excluded.bio")
+    statement = statement.replace("source_url=VALUES(source_url)", "source_url=excluded.source_url")
+    statement = statement.replace("audio_url=VALUES(audio_url)", "audio_url=excluded.audio_url")
+    statement = statement.replace("expires_at=VALUES(expires_at)", "expires_at=excluded.expires_at")
+    for old, new in replacements:
+        statement = statement.replace(old, new)
+    statement = re.sub(r"\bid\s+INT\s+AUTOINCREMENT\s+PRIMARY\s+KEY\b", "id INTEGER PRIMARY KEY AUTOINCREMENT", statement, flags=re.IGNORECASE)
+    return statement
+
+
 def execute(sql, params=None, fetch=False, many=False):
     with connect_db() as conn:
+        if isinstance(conn, sqlite3.Connection):
+            statement = sqlite_statement(sql)
+            cur = conn.cursor()
+            if many:
+                cur.executemany(statement, params or [])
+            else:
+                cur.execute(statement, params or ())
+            if fetch:
+                return [dict(row) for row in cur.fetchall()]
+            conn.commit()
+            return cur.lastrowid
         with conn.cursor() as cur:
             if many:
                 cur.executemany(sql, params or [])
@@ -3949,6 +4031,11 @@ def initialize_app_once():
 
 
 def ensure_user_profile_columns():
+    if use_sqlite_backend():
+        columns = {row["name"] for row in execute("PRAGMA table_info(users)", fetch=True)}
+        if "profile_image" not in columns:
+            execute("ALTER TABLE users ADD COLUMN profile_image TEXT")
+        return
     columns = {
         row["Field"]
         for row in execute("SHOW COLUMNS FROM users", fetch=True)
@@ -3958,6 +4045,11 @@ def ensure_user_profile_columns():
 
 
 def ensure_song_album_column():
+    if use_sqlite_backend():
+        columns = {row["name"] for row in execute("PRAGMA table_info(songs)", fetch=True)}
+        if "album" not in columns:
+            execute("ALTER TABLE songs ADD COLUMN album VARCHAR(180) DEFAULT ''")
+        return
     columns = {
         row["Field"]
         for row in execute("SHOW COLUMNS FROM songs", fetch=True)
@@ -3967,6 +4059,11 @@ def ensure_song_album_column():
 
 
 def ensure_song_cover_column():
+    if use_sqlite_backend():
+        columns = {row["name"] for row in execute("PRAGMA table_info(songs)", fetch=True)}
+        if "cover_url" not in columns:
+            execute("ALTER TABLE songs ADD COLUMN cover_url TEXT")
+        return
     columns = {
         row["Field"]
         for row in execute("SHOW COLUMNS FROM songs", fetch=True)
