@@ -3775,7 +3775,7 @@ def startup_popup():
         unsafe_allow_html=True,
     )
     with st.form("startup_enter_form", clear_on_submit=False):
-        entered = st.form_submit_button("Enter EcoWavE", use_container_width=True)
+        entered = st.form_submit_button("→", use_container_width=True)
     st.markdown("</div></div>", unsafe_allow_html=True)
     if entered:
         st.session_state.startup_popup_seen = True
