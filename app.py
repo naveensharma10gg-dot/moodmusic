@@ -3938,6 +3938,17 @@ def inject_styles():
         section[data-testid="stSidebar"] {
             display: none !important;
         }
+        header[data-testid="stHeader"],
+        [data-testid="stToolbar"],
+        [data-testid="stDecoration"],
+        [data-testid="collapsedControl"],
+        [data-testid="stSidebarCollapseButton"] {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
         .main .block-container {
             max-width: none !important;
             margin-left: 84px !important;
