@@ -1,10 +1,14 @@
-# Mood Music / Mood Tunes
+# Mood Tunes - AI Mood Music Player by Naveen Sharma
 
-Mood Tunes is a Streamlit music app that plays and recommends music according to the user's mood. It is built with Python, MySQL, and a lightweight recommendation scorer.
+Mood Tunes is Naveen Sharma's AI mood music player for discovering Punjabi songs, saving favorites, creating playlists, and getting music recommendations by mood. The project is built with Python, Streamlit, SQLite/MySQL, and a lightweight recommendation scorer.
+
+Live app: https://naveensharma10gg-dot-moodmusic-app-5cpsl4.streamlit.app
+
+Search name: Mood Tunes AI Mood Music Player by Naveen Sharma
 
 ## Features
 
-- Separate user and admin interfaces
+- Public user login and account creation
 - Login and signup with hashed passwords
 - Mood-based music recommendations
 - Music source URL support for audio files, YouTube, Spotify, SoundCloud, or any web link
@@ -14,11 +18,6 @@ Mood Tunes is a Streamlit music app that plays and recommends music according to
 - User profile section
 - Add/remove music from user and admin panels
 - Admin dashboard for library and listener analytics
-
-## Default Demo Logins
-
-- Admin: `admin@moodtunes.local` / `admin123`
-- User: `user@moodtunes.local` / `user123`
 
 ## MySQL Setup
 

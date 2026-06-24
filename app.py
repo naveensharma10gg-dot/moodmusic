@@ -24,6 +24,11 @@ from yt_dlp import YoutubeDL
 
 
 APP_TITLE = "Mood Tunes"
+SEO_TITLE = "Mood Tunes - AI Mood Music Player by Naveen Sharma"
+SEO_DESCRIPTION = (
+    "Mood Tunes is Naveen Sharma's AI mood music player for discovering Punjabi songs, "
+    "saving favorites, creating playlists, and getting music recommendations by mood."
+)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGO_PATH = os.path.join(BASE_DIR, "assets", "mood_tunes_logo.png")
 AUTH_COOKIE_NAME = "mood_tunes_login"
@@ -821,7 +826,7 @@ MOOD_EXPANSION_TRACKS = build_mood_expansion()
 SEED_SONGS = PUNJABI_HITS + MORE_PUNJABI_ARTIST_TRACKS + ALBUM_TRACK_SEED_SONGS + MOOD_EXPANSION_TRACKS
 
 
-st.set_page_config(page_title=APP_TITLE, page_icon="MT", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title=SEO_TITLE, page_icon="MT", layout="wide", initial_sidebar_state="collapsed")
 
 
 def inject_styles():
