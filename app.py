@@ -3779,7 +3779,7 @@ def inject_styles():
             right: 20px;
             top: 67px;
             bottom: 96px;
-            width: min(505px, 28vw);
+            width: min(430px, 25vw);
             z-index: 997;
             border-radius: 8px;
             background: #121212;
@@ -3853,7 +3853,7 @@ def inject_styles():
             background: #000;
             color: #fff;
             display: grid;
-            grid-template-columns: 330px minmax(360px, 1fr) 330px;
+            grid-template-columns: 300px minmax(360px, 1fr) 260px;
             align-items: center;
             gap: 20px;
             padding: 0 20px;
@@ -3952,7 +3952,7 @@ def inject_styles():
         .main .block-container {
             max-width: none !important;
             margin-left: 84px !important;
-            margin-right: calc(min(505px, 28vw) + 30px) !important;
+            margin-right: calc(min(430px, 25vw) + 30px) !important;
             margin-top: 66px !important;
             margin-bottom: 94px !important;
             padding: 20px 32px 120px !important;
@@ -3962,14 +3962,7 @@ def inject_styles():
             box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
         }
         .hero {
-            min-height: 200px !important;
-            border: 0 !important;
-            box-shadow: none !important;
-            background:
-                linear-gradient(180deg, rgba(20,20,20,.1), rgba(18,18,18,.9)),
-                #181818 !important;
-            border-radius: 8px 8px 0 0 !important;
-            padding: 22px 48px !important;
+            display: none !important;
         }
         .hero h1 {
             font-size: clamp(2.7rem, 5.5vw, 5.2rem) !important;
@@ -4015,6 +4008,10 @@ def inject_styles():
             color: #fff !important;
             border: 0 !important;
             box-shadow: none !important;
+            min-height: 40px !important;
+            height: 40px !important;
+            padding: 0 14px !important;
+            font-size: .92rem !important;
         }
         div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover {
             background: #2f2f2f !important;
@@ -4035,11 +4032,11 @@ def inject_styles():
             display: grid !important;
             grid-template-columns: 1fr !important;
             align-items: start !important;
-            gap: 12px !important;
-            padding: 14px !important;
+            gap: 10px !important;
+            padding: 12px !important;
             border-radius: 8px !important;
-            background: transparent !important;
-            min-height: 270px;
+            background: #181818 !important;
+            min-height: 232px;
         }
         .song-card:hover .track-row {
             background: #1a1a1a !important;
@@ -4050,7 +4047,7 @@ def inject_styles():
             display: none !important;
         }
         .album-mark {
-            width: 100% !important;
+            width: min(100%, 160px) !important;
             height: auto !important;
             aspect-ratio: 1 !important;
             border-radius: 8px !important;
@@ -4064,11 +4061,11 @@ def inject_styles():
             border-radius: 8px !important;
         }
         .track-main {
-            padding-top: 2px !important;
+            padding-top: 0 !important;
             min-width: 0 !important;
         }
         .track-main h3 {
-            font-size: 1.15rem !important;
+            font-size: 1rem !important;
             line-height: 1.25 !important;
             white-space: normal !important;
             display: -webkit-box;
@@ -4079,17 +4076,17 @@ def inject_styles():
         .song-card .meta {
             display: block !important;
             color: #b3b3b3 !important;
-            font-size: .94rem !important;
+            font-size: .86rem !important;
             line-height: 1.45 !important;
         }
         .song-card .pill {
             display: none !important;
         }
         .song-card + div[data-testid="stHorizontalBlock"] {
-            margin-left: 14px !important;
-            max-width: 150px !important;
-            margin-top: -58px !important;
-            margin-bottom: 26px !important;
+            margin-left: 12px !important;
+            max-width: 120px !important;
+            margin-top: -6px !important;
+            margin-bottom: 18px !important;
         }
         .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
             min-height: 34px !important;
@@ -5954,9 +5951,9 @@ def render_song_list(rows, user, area, empty_message="No songs found.", initial_
     queue_tracks = queue_from_rows(visible_rows)
     saved_ids = saved_song_ids(user["id"])
     for position, (_, row) in enumerate(visible_rows.iterrows(), start=1):
-        if (position - 1) % 4 == 0:
-            grid_cols = st.columns(4)
-        with grid_cols[(position - 1) % 4]:
+        if (position - 1) % 5 == 0:
+            grid_cols = st.columns(5)
+        with grid_cols[(position - 1) % 5]:
             render_song_card(
                 row,
                 user,
@@ -6296,35 +6293,18 @@ def section_nav(state_key, sections, label="Section"):
 def section_nav2(state_key, sections, label="Section"):
     if state_key not in st.session_state or st.session_state[state_key] not in sections:
         st.session_state[state_key] = sections[0]
-    current_index = sections.index(st.session_state[state_key])
-    back_col, choose_col, next_col = st.columns([1, 5, 1])
-    if back_col.button("< Back", key=f"{state_key}_back_v2", disabled=current_index == 0, use_container_width=True):
-        st.session_state[state_key] = sections[current_index - 1]
-        st.rerun()
-    if next_col.button(
-        "Next >",
-        key=f"{state_key}_next_v2",
-        disabled=current_index == len(sections) - 1,
-        use_container_width=True,
-    ):
-        st.session_state[state_key] = sections[current_index + 1]
-        st.rerun()
-    with choose_col:
-        nav_cols = st.columns(len(sections))
-        for index, section in enumerate(sections):
-            active = section == st.session_state[state_key]
-            button_label = section
-            if nav_cols[index].button(button_label, key=f"{state_key}_v2_{section}", use_container_width=True):
-                st.session_state[state_key] = section
-                st.rerun()
+    nav_cols = st.columns(len(sections))
+    for index, section in enumerate(sections):
+        active = section == st.session_state[state_key]
+        button_label = f"● {section}" if active else section
+        if nav_cols[index].button(button_label, key=f"{state_key}_v2_{section}", use_container_width=True):
+            st.session_state[state_key] = section
+            st.rerun()
     return st.session_state[state_key]
 
 
 def user_interface(user):
     spotify_style_shell(user)
-    hero(user)
-    st.write("")
-    metric_row(user)
     st.write("")
     page = section_nav2(
         "user_page",
