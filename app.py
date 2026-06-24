@@ -4581,6 +4581,10 @@ def is_current_player(player_key):
     return st.session_state.get("current_player_key") == player_key
 
 
+def song_icon_label(player_key):
+    return "▶ ♪" if is_current_player(player_key) else "♪"
+
+
 def render_now_playing(title, artist):
     st.markdown(
         f"""
@@ -5064,11 +5068,7 @@ def render_online_results(search_text, user, mood, area):
             unsafe_allow_html=True,
         )
         action_cols = st.columns([9, 1])
-        play_label = (
-            f"Playing: {result['title']} - {result['artist']}"
-            if is_current_player(player_key)
-            else f"{result['title']} - {result['artist']}"
-        )
+        play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_online_{key_base}", use_container_width=True):
             song_id = ensure_online_song(result, user["id"], mood)
             set_current_player(player_key)
@@ -5349,7 +5349,7 @@ def render_song_card(row, user, allow_remove=False, area="library", position=1, 
         minutes = max(1, int(row.get("duration_seconds", 180) / 60))
         song_id = int(row["id"])
         action_cols = st.columns([9, 1])
-        play_label = f"Playing: {row['title']} - {row['artist']}" if is_current_player(player_key) else f"{row['title']} - {row['artist']}"
+        play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_{key_base}", use_container_width=True):
             set_current_player(player_key)
             set_play_queue(queue_tracks or [queue_track(row["title"], row["artist"], row["source_url"], row.get("duration_seconds", 180))], position - 1)
@@ -5489,11 +5489,7 @@ def history_section(user):
             unsafe_allow_html=True,
         )
         action_cols = st.columns([9, 1])
-        play_label = (
-            f"Playing: {row['title']} - {row['artist']}"
-            if is_current_player(player_key)
-            else f"{row['title']} - {row['artist']}"
-        )
+        play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_history_{int(row['id'])}_{int(row['song_id'])}", use_container_width=True):
             set_current_player(player_key)
             set_play_queue(history_queue, position - 1)
@@ -5628,11 +5624,7 @@ def playlists_section(user):
         )
         player_key = f"playlist_{playlist_id}_{int(row['id'])}"
         action_cols = st.columns([9, 1])
-        play_label = (
-            f"Playing: {row['title']} - {row['artist']}"
-            if is_current_player(player_key)
-            else f"{row['title']} - {row['artist']}"
-        )
+        play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"playlist_play_{playlist_id}_{int(row['id'])}", use_container_width=True):
             set_current_player(player_key)
             set_play_queue(playlist_queue, position - 1)
