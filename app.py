@@ -4991,6 +4991,10 @@ def online_music_search(search_text, limit=5):
         "extract_flat": True,
         "skip_download": True,
         "default_search": "ytsearch",
+        "socket_timeout": 5,
+        "retries": 1,
+        "fragment_retries": 1,
+        "extractor_retries": 1,
     }
     with YoutubeDL(options) as ydl:
         data = ydl.extract_info(f"ytsearch{limit}:{search_text} song", download=False)
@@ -5099,7 +5103,7 @@ def source_view(url):
     if queue:
         for index, track in enumerate(queue):
             if str(track.get("url")) == str(url):
-                render_auto_queue_player(queue, st.session_state.get("play_queue_start", index))
+                render_auto_queue_player([track], 0)
                 return
 
     parsed = urlparse(url)
@@ -5237,9 +5241,7 @@ def format_duration(seconds):
 
 
 def song_logo_html(source_url, title="", artist="", mood="", cover_url=""):
-    cover = cover_url or resolved_cover_url(source_url)
-    if cover and not cover_url:
-        remember_song_cover(source_url, cover)
+    cover = cover_url or youtube_thumbnail_url(source_url)
     if cover:
         safe_cover = html.escape(str(cover), quote=True)
         safe_title = html.escape(str(title or "Song artwork"), quote=True)
