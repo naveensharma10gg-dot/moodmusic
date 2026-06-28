@@ -3659,6 +3659,18 @@ def inject_styles():
                 max-width: none;
             }
         }
+        header[data-testid="stHeader"],
+        [data-testid="stToolbar"],
+        [data-testid="stDecoration"],
+        [data-testid="collapsedControl"],
+        [data-testid="stSidebarCollapseButton"],
+        button[kind="header"] {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
