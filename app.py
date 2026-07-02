@@ -3671,6 +3671,150 @@ def inject_styles():
             height: 0 !important;
             overflow: hidden !important;
         }
+        @media (max-width: 760px) {
+            .stApp {
+                background: #060807 !important;
+            }
+            .main .block-container {
+                padding: .75rem .8rem 5.5rem !important;
+                max-width: 100% !important;
+            }
+            [data-testid="stSidebar"] {
+                display: none !important;
+            }
+            .hero {
+                min-height: 170px !important;
+                padding: 18px !important;
+                border-radius: 8px !important;
+                display: block !important;
+            }
+            .hero .brand-lockup {
+                gap: 10px !important;
+                margin-bottom: 10px !important;
+            }
+            .hero-logo,
+            .brand-logo,
+            .startup-logo {
+                width: 54px !important;
+                height: 54px !important;
+                object-fit: cover !important;
+            }
+            .hero h1 {
+                font-size: 2.05rem !important;
+                line-height: 1 !important;
+                margin-bottom: 8px !important;
+            }
+            .hero p {
+                font-size: .9rem !important;
+                line-height: 1.45 !important;
+            }
+            .hero-deck {
+                display: none !important;
+            }
+            .metric-card {
+                min-height: 82px !important;
+                padding: 13px !important;
+                margin-bottom: 8px !important;
+            }
+            .metric-card .value {
+                font-size: 1.45rem !important;
+            }
+            .section-intro {
+                padding: 13px 14px !important;
+                margin: 10px 0 14px !important;
+            }
+            .section-intro h2 {
+                font-size: 1.25rem !important;
+                line-height: 1.15 !important;
+            }
+            .section-intro p {
+                font-size: .86rem !important;
+                line-height: 1.4 !important;
+            }
+            div[data-testid="stSelectbox"],
+            div[data-testid="stTextInput"],
+            div[data-testid="stTextArea"],
+            div[data-testid="stNumberInput"] {
+                margin-bottom: 10px !important;
+            }
+            div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+            div[data-testid="stTextInput"] input,
+            div[data-testid="stTextArea"] textarea,
+            div[data-testid="stNumberInput"] input {
+                min-height: 46px !important;
+                border-radius: 8px !important;
+                font-size: .95rem !important;
+            }
+            div[data-testid="stButton"] > button,
+            div[data-testid="stFormSubmitButton"] > button,
+            div[data-testid="stDownloadButton"] > button {
+                min-height: 46px !important;
+                border-radius: 8px !important;
+                font-size: .95rem !important;
+            }
+            .song-card {
+                padding: 12px !important;
+                margin-top: 10px !important;
+            }
+            .track-row {
+                grid-template-columns: 38px minmax(0, 1fr) 46px !important;
+                gap: 10px !important;
+            }
+            .album-mark {
+                width: 38px !important;
+                height: 38px !important;
+                border-radius: 8px !important;
+            }
+            .track-main h3 {
+                font-size: .98rem !important;
+                white-space: normal !important;
+                line-height: 1.22 !important;
+            }
+            .song-card .meta {
+                font-size: .78rem !important;
+                line-height: 1.3 !important;
+            }
+            .track-index,
+            .track-album,
+            .track-duration {
+                display: none !important;
+            }
+            .song-card + div[data-testid="stHorizontalBlock"] {
+                margin: 4px 0 12px !important;
+                max-width: 100% !important;
+            }
+            .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button,
+            .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button {
+                min-height: 38px !important;
+                height: 38px !important;
+                font-size: .85rem !important;
+            }
+            .playlist-player,
+            .boosted-player {
+                padding: 12px !important;
+                border-radius: 8px !important;
+            }
+            .startup-page {
+                min-height: 100vh !important;
+                padding: 12px !important;
+            }
+            .startup-card {
+                padding: 18px !important;
+                border-radius: 8px !important;
+            }
+            .startup-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            .startup-popup h2 {
+                font-size: 1.55rem !important;
+                line-height: 1.1 !important;
+            }
+            .startup-popup p {
+                font-size: .9rem !important;
+                line-height: 1.45 !important;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -5744,6 +5888,18 @@ def section_nav2(state_key, sections, label="Section"):
     if state_key not in st.session_state or st.session_state[state_key] not in sections:
         st.session_state[state_key] = sections[0]
     current_index = sections.index(st.session_state[state_key])
+    if len(sections) > 4:
+        selected = st.selectbox(
+            label,
+            sections,
+            index=current_index,
+            key=f"{state_key}_mobile_select",
+            label_visibility="collapsed",
+        )
+        if selected != st.session_state[state_key]:
+            st.session_state[state_key] = selected
+            st.rerun()
+        return st.session_state[state_key]
     back_col, choose_col, next_col = st.columns([1, 5, 1])
     if back_col.button("< Back", key=f"{state_key}_back_v2", disabled=current_index == 0, use_container_width=True):
         st.session_state[state_key] = sections[current_index - 1]
