@@ -5117,15 +5117,7 @@ def song_icon_label(player_key):
 
 
 def render_now_playing(title, artist):
-    st.markdown(
-        f"""
-        <div class="now-playing">
-            Now playing
-            <span>{html.escape(str(title))} - {html.escape(str(artist))}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    return
 
 
 def boosted_audio_player(url, key_base, boost=1.0, autoplay=True):
@@ -5602,7 +5594,7 @@ def render_online_results(search_text, user, mood, area):
             """,
             unsafe_allow_html=True,
         )
-        action_cols = st.columns([9, 1])
+        action_cols = st.columns([1.05, 0.55, 6])
         play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_online_{key_base}", use_container_width=True):
             song_id = ensure_online_song(result, user["id"], mood)
@@ -5611,7 +5603,7 @@ def render_online_results(search_text, user, mood, area):
             log_listen(user["id"], song_id, mood, result["duration_seconds"])
             st.success("Played and added to your mood history.")
             st.rerun()
-        menu = action_cols[1].popover("...", use_container_width=True)
+        menu = action_cols[1].popover("More", use_container_width=True)
         if menu.button("Save", key=f"save_online_{key_base}", use_container_width=True):
             song_id = ensure_online_song(result, user["id"], mood)
             save_song(user["id"], song_id)
@@ -5634,7 +5626,7 @@ def source_view(url):
     if queue:
         for index, track in enumerate(queue):
             if str(track.get("url")) == str(url):
-                render_auto_queue_player([track], 0)
+                render_auto_queue_player(queue, index)
                 return
 
     parsed = urlparse(url)
@@ -5684,6 +5676,8 @@ def render_auto_queue_player(queue, start_index=0):
                         "title": track.get("title", "Untitled"),
                         "artist": track.get("artist", "Unknown Artist"),
                         "url": audio_url,
+                        "cover": youtube_thumbnail_url(track.get("url", "")),
+                        "duration": int(track.get("duration_seconds", 180) or 180),
                     }
                 )
             else:
@@ -5700,20 +5694,195 @@ def render_auto_queue_player(queue, start_index=0):
     ).hexdigest()[:12]
     components.html(
         f"""
-        <div class="playlist-player queue-player">
-            <div class="playlist-player-title">Queue Player</div>
-            <div id="queue-now-{player_id}">Ready</div>
-            <audio id="queue-audio-{player_id}" controls autoplay style="width:100%; margin-top:12px;"></audio>
-            <div style="display:flex; align-items:center; gap:10px; margin-top:10px; color:#b3b3b3; font-size:13px;">
-                <span>Volume</span>
-                <input id="queue-gain-{player_id}" type="range" min="0" max="1" step="0.05" value="1" style="flex:1;">
-                <strong id="queue-gain-label-{player_id}" style="color:#fff;">100%</strong>
+        <style>
+            .ew-player {{
+                font-family: "Segoe UI", Arial, sans-serif;
+                color: #f8fbff;
+                min-height: 360px;
+                border: 1px solid rgba(255,255,255,.16);
+                border-radius: 26px;
+                background:
+                    radial-gradient(circle at 18% 18%, rgba(38,232,180,.28), transparent 30%),
+                    radial-gradient(circle at 88% 18%, rgba(255,107,107,.20), transparent 28%),
+                    linear-gradient(135deg, rgba(11,15,20,.97), rgba(22,26,34,.95));
+                overflow: hidden;
+                box-shadow: 0 24px 80px rgba(0,0,0,.36);
+            }}
+            .ew-player-shell {{
+                display: grid;
+                grid-template-columns: 230px minmax(0, 1fr);
+                gap: 24px;
+                padding: 26px;
+                align-items: center;
+            }}
+            .ew-art {{
+                aspect-ratio: 1;
+                border-radius: 24px;
+                background:
+                    linear-gradient(135deg, #26e8b4, #64b5f6 46%, #ff6b6b);
+                box-shadow: 0 28px 70px rgba(0,0,0,.42);
+                position: relative;
+                overflow: hidden;
+            }}
+            .ew-art.has-cover {{
+                background-size: cover;
+                background-position: center;
+            }}
+            .ew-art::after {{
+                content: "EcoWavE";
+                position: absolute;
+                left: 16px;
+                bottom: 14px;
+                padding: 7px 10px;
+                border-radius: 999px;
+                background: rgba(0,0,0,.52);
+                color: #fff;
+                font-weight: 900;
+                font-size: 12px;
+                letter-spacing: 0;
+            }}
+            .ew-kicker {{
+                color: #26e8b4;
+                font-size: 12px;
+                font-weight: 950;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+            }}
+            .ew-title {{
+                margin: 0;
+                color: #fff;
+                font-size: clamp(26px, 5vw, 48px);
+                line-height: 1;
+                font-weight: 950;
+                letter-spacing: 0;
+                max-width: 900px;
+            }}
+            .ew-artist {{
+                color: rgba(248,251,255,.68);
+                margin-top: 10px;
+                font-size: 17px;
+                font-weight: 750;
+            }}
+            .ew-controls {{
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin: 26px 0 18px;
+            }}
+            .ew-btn {{
+                border: 0;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                display: grid;
+                place-items: center;
+                cursor: pointer;
+                background: rgba(255,255,255,.12);
+                color: #fff;
+                font-size: 20px;
+                font-weight: 950;
+            }}
+            .ew-btn:hover {{
+                background: rgba(255,255,255,.2);
+            }}
+            .ew-play {{
+                width: 68px;
+                height: 68px;
+                background: #26e8b4;
+                color: #03120f;
+                font-size: 28px;
+                box-shadow: 0 16px 34px rgba(38,232,180,.28);
+            }}
+            .ew-bars {{
+                display: grid;
+                grid-template-columns: 48px minmax(0, 1fr) 48px;
+                gap: 12px;
+                align-items: center;
+                color: rgba(248,251,255,.68);
+                font-size: 13px;
+                font-weight: 800;
+                font-variant-numeric: tabular-nums;
+            }}
+            .ew-range {{
+                width: 100%;
+                accent-color: #26e8b4;
+            }}
+            .ew-footer {{
+                display: flex;
+                justify-content: space-between;
+                gap: 18px;
+                align-items: center;
+                padding-top: 18px;
+                color: rgba(248,251,255,.7);
+                font-weight: 800;
+            }}
+            .ew-volume {{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 230px;
+            }}
+            .ew-pill {{
+                border: 1px solid rgba(255,255,255,.16);
+                border-radius: 999px;
+                padding: 8px 12px;
+                background: rgba(255,255,255,.08);
+                color: #fff;
+                font-size: 13px;
+            }}
+            audio {{
+                display: none;
+            }}
+            @media (max-width: 720px) {{
+                .ew-player-shell {{
+                    grid-template-columns: 1fr;
+                    padding: 18px;
+                }}
+                .ew-art {{
+                    width: min(72vw, 260px);
+                    margin: 0 auto;
+                }}
+                .ew-title {{
+                    font-size: 30px;
+                }}
+                .ew-footer {{
+                    align-items: flex-start;
+                    flex-direction: column;
+                }}
+                .ew-volume {{
+                    width: 100%;
+                    min-width: 0;
+                }}
+            }}
+        </style>
+        <div class="ew-player">
+            <div class="ew-player-shell">
+                <div id="queue-art-{player_id}" class="ew-art"></div>
+                <div>
+                    <div class="ew-kicker">Now playing</div>
+                    <h1 id="queue-title-{player_id}" class="ew-title">Ready</h1>
+                    <div id="queue-artist-{player_id}" class="ew-artist">EcoWavE Player</div>
+                    <div class="ew-controls">
+                        <button class="ew-btn" id="queue-prev-{player_id}" type="button" aria-label="Previous track">‹</button>
+                        <button class="ew-btn ew-play" id="queue-play-{player_id}" type="button" aria-label="Play or pause">▶</button>
+                        <button class="ew-btn" id="queue-next-{player_id}" type="button" aria-label="Next track">›</button>
+                    </div>
+                    <div class="ew-bars">
+                        <span id="queue-current-{player_id}">0:00</span>
+                        <input id="queue-progress-{player_id}" class="ew-range" type="range" min="0" max="1000" value="0">
+                        <span id="queue-total-{player_id}">0:00</span>
+                    </div>
+                    <div class="ew-footer">
+                        <div id="queue-count-{player_id}" class="ew-pill">Preparing queue</div>
+                        <div class="ew-volume">
+                            <span>Volume</span>
+                            <input id="queue-gain-{player_id}" class="ew-range" type="range" min="0" max="1" step="0.05" value="1">
+                            <strong id="queue-gain-label-{player_id}">100%</strong>
+                        </div>
+                    </div>
+                    <audio id="queue-audio-{player_id}" autoplay></audio>
+                </div>
             </div>
-            <div style="display:flex; gap:8px; margin-top:12px;">
-                <button id="queue-prev-{player_id}" type="button">Previous</button>
-                <button id="queue-next-{player_id}" type="button">Next</button>
-            </div>
-            <div id="queue-count-{player_id}" style="margin-top:10px; color:#b3b3b3; font-size:13px;"></div>
         </div>
         <script>
         (() => {{
@@ -5723,9 +5892,21 @@ def render_auto_queue_player(queue, start_index=0):
             const audio = document.getElementById("queue-audio-{player_id}");
             const gainSlider = document.getElementById("queue-gain-{player_id}");
             const gainLabel = document.getElementById("queue-gain-label-{player_id}");
-            const now = document.getElementById("queue-now-{player_id}");
+            const title = document.getElementById("queue-title-{player_id}");
+            const artist = document.getElementById("queue-artist-{player_id}");
+            const art = document.getElementById("queue-art-{player_id}");
             const count = document.getElementById("queue-count-{player_id}");
+            const play = document.getElementById("queue-play-{player_id}");
+            const progress = document.getElementById("queue-progress-{player_id}");
+            const current = document.getElementById("queue-current-{player_id}");
+            const total = document.getElementById("queue-total-{player_id}");
             audio.volume = 1.0;
+            function fmt(seconds) {{
+                seconds = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+                return mins + ":" + secs;
+            }}
             gainSlider.addEventListener("input", () => {{
                 audio.volume = Number(gainSlider.value);
                 gainLabel.textContent = Math.round(audio.volume * 100) + "%";
@@ -5733,15 +5914,51 @@ def render_auto_queue_player(queue, start_index=0):
             function loadTrack(nextIndex, shouldPlay = true) {{
                 index = (nextIndex + tracks.length) % tracks.length;
                 audio.src = tracks[index].url;
-                now.textContent = tracks[index].title + " - " + tracks[index].artist;
+                title.textContent = tracks[index].title;
+                artist.textContent = tracks[index].artist;
                 count.textContent = "Track " + (index + 1) + " of " + tracks.length;
+                total.textContent = fmt(tracks[index].duration || 0);
+                current.textContent = "0:00";
+                progress.value = 0;
+                if (tracks[index].cover) {{
+                    art.classList.add("has-cover");
+                    art.style.backgroundImage = "linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.28)), url('" + tracks[index].cover.replaceAll("'", "%27") + "')";
+                }} else {{
+                    art.classList.remove("has-cover");
+                    art.style.backgroundImage = "";
+                }}
                 if (shouldPlay) {{
-                    audio.play().catch(() => {{}});
+                    audio.play().then(() => {{
+                        play.textContent = "Ⅱ";
+                    }}).catch(() => {{
+                        play.textContent = "▶";
+                    }});
                 }}
             }}
             document.getElementById("queue-next-{player_id}").onclick = () => loadTrack(index + 1);
             document.getElementById("queue-prev-{player_id}").onclick = () => loadTrack(index - 1);
-            audio.addEventListener("playing", () => {{ errorSkips = 0; }});
+            play.onclick = () => {{
+                if (audio.paused) {{
+                    audio.play().then(() => {{ play.textContent = "Ⅱ"; }}).catch(() => {{}});
+                }} else {{
+                    audio.pause();
+                    play.textContent = "▶";
+                }}
+            }};
+            progress.addEventListener("input", () => {{
+                if (audio.duration) {{
+                    audio.currentTime = (Number(progress.value) / 1000) * audio.duration;
+                }}
+            }});
+            audio.addEventListener("timeupdate", () => {{
+                current.textContent = fmt(audio.currentTime);
+                if (audio.duration) {{
+                    total.textContent = fmt(audio.duration);
+                    progress.value = Math.round((audio.currentTime / audio.duration) * 1000);
+                }}
+            }});
+            audio.addEventListener("playing", () => {{ errorSkips = 0; play.textContent = "Ⅱ"; }});
+            audio.addEventListener("pause", () => {{ play.textContent = "▶"; }});
             audio.addEventListener("ended", () => loadTrack(index + 1));
             audio.addEventListener("error", () => {{
                 errorSkips += 1;
@@ -5749,13 +5966,14 @@ def render_auto_queue_player(queue, start_index=0):
                     loadTrack(index + 1);
                 }} else {{
                     count.textContent = "Could not play the prepared queue.";
+                    play.textContent = "▶";
                 }}
             }});
             loadTrack(index, true);
         }})();
         </script>
         """,
-        height=190,
+        height=410,
     )
     if skipped:
         st.caption(f"{len(skipped)} song(s) could not be prepared for this queue.")
@@ -5887,7 +6105,7 @@ def render_song_card(row, user, allow_remove=False, area="library", position=1, 
         )
         minutes = max(1, int(row.get("duration_seconds", 180) / 60))
         song_id = int(row["id"])
-        action_cols = st.columns([9, 1])
+        action_cols = st.columns([1.05, 0.55, 6])
         play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_{key_base}", use_container_width=True):
             set_current_player(player_key)
@@ -5895,7 +6113,7 @@ def render_song_card(row, user, allow_remove=False, area="library", position=1, 
             log_listen(user["id"], song_id, row["mood"], int(row.get("duration_seconds", 180)))
             st.success(f"Added {minutes} minutes to {row['mood']} history.")
             st.rerun()
-        menu = action_cols[1].popover("...", use_container_width=True)
+        menu = action_cols[1].popover("More", use_container_width=True)
         if song_id in saved_ids:
             if menu.button("Unsave", key=f"unsave_{key_base}", use_container_width=True):
                 unsave_song(user["id"], song_id)
@@ -6027,14 +6245,14 @@ def history_section(user):
             """,
             unsafe_allow_html=True,
         )
-        action_cols = st.columns([9, 1])
+        action_cols = st.columns([1.05, 0.55, 6])
         play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"play_history_{int(row['id'])}_{int(row['song_id'])}", use_container_width=True):
             set_current_player(player_key)
             set_play_queue(history_queue, position - 1)
             log_listen(user["id"], int(row["song_id"]), row["mood"], int(row.get("duration_seconds", 180)))
             st.rerun()
-        menu = action_cols[1].popover("...", use_container_width=True)
+        menu = action_cols[1].popover("More", use_container_width=True)
         if menu.button("Save", key=f"save_history_{int(row['id'])}_{int(row['song_id'])}", use_container_width=True):
             save_song(user["id"], int(row["song_id"]))
             st.success("Saved to your library.")
@@ -6162,14 +6380,14 @@ def playlists_section(user):
             unsafe_allow_html=True,
         )
         player_key = f"playlist_{playlist_id}_{int(row['id'])}"
-        action_cols = st.columns([9, 1])
+        action_cols = st.columns([1.05, 0.55, 6])
         play_label = song_icon_label(player_key)
         if action_cols[0].button(play_label, key=f"playlist_play_{playlist_id}_{int(row['id'])}", use_container_width=True):
             set_current_player(player_key)
             set_play_queue(playlist_queue, position - 1)
             log_listen(user["id"], int(row["id"]), row["mood"], int(row.get("duration_seconds", 180)))
             st.rerun()
-        menu = action_cols[1].popover("...", use_container_width=True)
+        menu = action_cols[1].popover("More", use_container_width=True)
         if menu.button("Remove From Playlist", key=f"playlist_remove_{playlist_id}_{int(row['id'])}", use_container_width=True):
             remove_song_from_playlist(user["id"], playlist_id, int(row["id"]))
             st.rerun()
