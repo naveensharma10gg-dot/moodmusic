@@ -3815,6 +3815,381 @@ def inject_styles():
                 line-height: 1.45 !important;
             }
         }
+
+        /* EcoWavE Studio interface refresh */
+        :root {
+            --ew-bg: #07090b;
+            --ew-surface: rgba(13, 17, 22, .92);
+            --ew-card: rgba(255, 255, 255, .075);
+            --ew-card-strong: rgba(255, 255, 255, .12);
+            --ew-line: rgba(255, 255, 255, .14);
+            --ew-text: #f8fbff;
+            --ew-muted: #aeb9c8;
+            --ew-mint: #26e8b4;
+            --ew-coral: #ff6b6b;
+            --ew-gold: #ffd166;
+            --ew-sky: #64b5f6;
+            --ew-rose: #f472b6;
+        }
+        .stApp {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(38,232,180,.22), transparent 30%),
+                radial-gradient(circle at 86% 18%, rgba(255,107,107,.18), transparent 32%),
+                radial-gradient(circle at 55% 100%, rgba(100,181,246,.18), transparent 34%),
+                linear-gradient(180deg, #080a0d, #040506) !important;
+            color: var(--ew-text) !important;
+        }
+        .main .block-container {
+            background: rgba(8, 11, 15, .72) !important;
+            border: 1px solid rgba(255,255,255,.08) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 26px 90px rgba(0,0,0,.42) !important;
+            backdrop-filter: blur(18px) !important;
+            padding: 24px 28px 82px !important;
+        }
+        .ew-studio-hero {
+            min-height: 310px !important;
+            border-radius: 18px !important;
+            border: 1px solid rgba(255,255,255,.18) !important;
+            background:
+                linear-gradient(115deg, rgba(8,11,15,.96), rgba(12,21,23,.82) 45%, rgba(38,232,180,.22)),
+                url("https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1600&q=80") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            box-shadow: 0 28px 80px rgba(0,0,0,.4) !important;
+            overflow: hidden !important;
+        }
+        .ew-studio-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255,255,255,.035) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(90deg, black, transparent 86%);
+            pointer-events: none;
+        }
+        .hero-copy,
+        .hero-deck {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+        .hero h1 {
+            max-width: 820px !important;
+            font-size: clamp(2.6rem, 6vw, 5.2rem) !important;
+            line-height: .95 !important;
+            letter-spacing: 0 !important;
+            color: #fff !important;
+        }
+        .hero p {
+            color: rgba(248,251,255,.82) !important;
+            max-width: 680px !important;
+            font-size: 1.05rem !important;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+        .hero-actions span {
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 999px;
+            padding: 8px 13px;
+            background: rgba(255,255,255,.1);
+            color: #fff;
+            font-weight: 850;
+            backdrop-filter: blur(12px);
+        }
+        .hero-deck {
+            border-radius: 16px !important;
+            border: 1px solid rgba(255,255,255,.2) !important;
+            background: rgba(3, 6, 8, .6) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 70px rgba(0,0,0,.35) !important;
+        }
+        .hero-mini-card {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            color: var(--ew-muted);
+            font-weight: 750;
+            line-height: 1.35;
+        }
+        .feature-overview {
+            display: grid;
+            grid-template-columns: 1.35fr repeat(3, minmax(160px, 1fr));
+            gap: 14px;
+            margin: 4px 0 18px;
+        }
+        .feature-tile {
+            min-height: 126px;
+            border: 1px solid var(--ew-line);
+            border-radius: 16px;
+            padding: 18px;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+            box-shadow: 0 18px 50px rgba(0,0,0,.24);
+        }
+        .feature-tile strong {
+            display: block;
+            margin-top: 8px;
+            color: #fff;
+            font-size: clamp(1.35rem, 2.5vw, 2rem);
+            line-height: 1.05;
+            font-weight: 950;
+        }
+        .feature-tile p {
+            margin: 8px 0 0;
+            color: var(--ew-muted);
+            line-height: 1.45;
+            font-weight: 650;
+        }
+        .tile-kicker {
+            color: var(--ew-mint);
+            font-size: .78rem;
+            font-weight: 950;
+            text-transform: uppercase;
+        }
+        .feature-dock {
+            margin: 8px 0 18px;
+        }
+        .feature-dock + div[data-testid="stHorizontalBlock"] {
+            gap: 12px !important;
+        }
+        .feature-dock + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
+            min-height: 56px !important;
+            border-radius: 14px !important;
+            border: 1px solid rgba(255,255,255,.12) !important;
+            background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.055)) !important;
+            color: #f8fbff !important;
+            box-shadow: 0 14px 36px rgba(0,0,0,.18) !important;
+            white-space: normal !important;
+        }
+        .feature-dock + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover {
+            background: linear-gradient(145deg, rgba(38,232,180,.28), rgba(100,181,246,.18)) !important;
+            border-color: rgba(38,232,180,.5) !important;
+            transform: translateY(-1px) !important;
+        }
+        .page-header {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin: 8px 0 18px;
+            background: linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+            box-shadow: 0 18px 54px rgba(0,0,0,.24);
+        }
+        .page-header::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            right: -38px;
+            top: -44px;
+            border-radius: 50%;
+            background: var(--ew-mint);
+            opacity: .22;
+        }
+        .page-header.accent-gold::after { background: var(--ew-gold); }
+        .page-header.accent-sky::after { background: var(--ew-sky); }
+        .page-header.accent-rose::after { background: var(--ew-rose); }
+        .page-header span {
+            color: var(--ew-mint);
+            font-weight: 950;
+            text-transform: uppercase;
+            font-size: .78rem;
+        }
+        .page-header.accent-gold span { color: var(--ew-gold); }
+        .page-header.accent-sky span { color: var(--ew-sky); }
+        .page-header.accent-rose span { color: var(--ew-rose); }
+        .page-header h2 {
+            margin: 6px 0 6px;
+            color: #fff;
+            font-size: clamp(1.8rem, 3.4vw, 3.2rem);
+            line-height: 1;
+            font-weight: 950;
+        }
+        .page-header p {
+            max-width: 780px;
+            margin: 0;
+            color: var(--ew-muted);
+            line-height: 1.5;
+            font-weight: 650;
+        }
+        .song-card {
+            border: 1px solid rgba(255,255,255,.09) !important;
+            border-radius: 16px !important;
+            margin: 10px 0 0 !important;
+            padding: 12px 14px !important;
+            background: rgba(255,255,255,.055) !important;
+            box-shadow: 0 12px 38px rgba(0,0,0,.18) !important;
+        }
+        .song-card:hover {
+            background: rgba(255,255,255,.095) !important;
+            border-color: rgba(38,232,180,.42) !important;
+            transform: translateY(-1px) !important;
+        }
+        .track-row {
+            grid-template-columns: 32px 56px minmax(0, 1fr) minmax(120px, 220px) 58px !important;
+            gap: 12px !important;
+        }
+        .album-mark {
+            width: 56px !important;
+            height: 56px !important;
+            min-width: 56px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 28px rgba(0,0,0,.28) !important;
+        }
+        .real-cover,
+        .creative-cover {
+            border-radius: 12px !important;
+        }
+        .song-card h3 {
+            color: #fff !important;
+            font-size: 1rem !important;
+            font-weight: 900 !important;
+        }
+        .song-card .meta {
+            color: var(--ew-muted) !important;
+            font-size: .85rem !important;
+        }
+        .pill {
+            color: var(--ew-mint) !important;
+            background: rgba(38,232,180,.12) !important;
+            border: 1px solid rgba(38,232,180,.2) !important;
+            padding: 3px 8px !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] {
+            margin: 6px 0 12px 100px !important;
+            max-width: 620px !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button {
+            min-height: 38px !important;
+            height: 38px !important;
+            border-radius: 999px !important;
+            background: rgba(255,255,255,.11) !important;
+            color: #fff !important;
+            border: 1px solid rgba(255,255,255,.14) !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button:hover {
+            background: var(--ew-mint) !important;
+            color: #04100c !important;
+        }
+        div[data-testid="stButton"] > button,
+        div[data-testid="stFormSubmitButton"] > button,
+        div[data-testid="stDownloadButton"] > button {
+            border-radius: 12px !important;
+            background: linear-gradient(135deg, var(--ew-mint), var(--ew-sky)) !important;
+            color: #03120f !important;
+            border: 0 !important;
+            font-weight: 950 !important;
+        }
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stTextArea"] textarea,
+        div[data-testid="stNumberInput"] input,
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            border-radius: 14px !important;
+            border: 1px solid rgba(255,255,255,.14) !important;
+            background: rgba(255,255,255,.1) !important;
+            color: #fff !important;
+            min-height: 48px !important;
+        }
+        div[data-testid="stTextInput"] input::placeholder,
+        div[data-testid="stTextArea"] textarea::placeholder {
+            color: rgba(248,251,255,.56) !important;
+        }
+        div[data-testid="stSelectbox"] * {
+            color: #fff !important;
+        }
+        .playlist-player,
+        .profile-panel,
+        .section-intro,
+        .metric-card {
+            border-radius: 16px !important;
+            border: 1px solid rgba(255,255,255,.12) !important;
+            background: rgba(255,255,255,.065) !important;
+        }
+        @media (max-width: 920px) {
+            .feature-overview {
+                grid-template-columns: 1fr 1fr;
+            }
+            .ew-studio-hero {
+                grid-template-columns: 1fr !important;
+                min-height: auto !important;
+            }
+        }
+        @media (max-width: 760px) {
+            .main .block-container {
+                padding: 14px 12px 96px !important;
+                border-radius: 0 !important;
+            }
+            .ew-studio-hero {
+                padding: 18px !important;
+                border-radius: 16px !important;
+            }
+            .hero h1 {
+                font-size: 2.25rem !important;
+            }
+            .hero-actions span {
+                padding: 7px 10px;
+                font-size: .78rem;
+            }
+            .feature-overview {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .feature-tile {
+                min-height: auto;
+                padding: 15px;
+            }
+            .feature-dock + div[data-testid="stHorizontalBlock"] {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+            }
+            .feature-dock + div[data-testid="stHorizontalBlock"] > div {
+                width: 100% !important;
+            }
+            .feature-dock + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
+                min-height: 48px !important;
+                border-radius: 12px !important;
+                font-size: .86rem !important;
+            }
+            .page-header {
+                padding: 17px;
+                border-radius: 15px;
+            }
+            .page-header h2 {
+                font-size: 1.7rem;
+            }
+            .song-card {
+                padding: 12px !important;
+                border-radius: 14px !important;
+            }
+            .track-row {
+                grid-template-columns: 48px minmax(0, 1fr) !important;
+                gap: 11px !important;
+            }
+            .album-mark {
+                width: 48px !important;
+                height: 48px !important;
+                min-width: 48px !important;
+            }
+            .track-index,
+            .track-album,
+            .track-duration {
+                display: none !important;
+            }
+            .song-card + div[data-testid="stHorizontalBlock"] {
+                margin: 6px 0 14px !important;
+                max-width: none !important;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -4738,7 +5113,7 @@ def is_current_player(player_key):
 
 
 def song_icon_label(player_key):
-    return "▶ ♪" if is_current_player(player_key) else "♪"
+    return "Playing" if is_current_player(player_key) else "Play"
 
 
 def render_now_playing(title, artist):
@@ -5429,24 +5804,30 @@ def hero(user):
     logo_html = logo_img_html("hero-logo")
     st.markdown(
         f"""
-        <div class="hero">
-            <div>
+        <div class="hero ew-studio-hero">
+            <div class="hero-copy">
                 <div class="brand-lockup">
                     {logo_html}
                     <div class="brand-copy">
                         <div class="brand-name">{APP_TITLE}</div>
-                        <div class="brand-subtitle">Mood aware music console</div>
+                        <div class="brand-subtitle">A fresh music space for every mood</div>
                     </div>
                 </div>
-                <h1>{APP_TITLE}</h1>
-                <p>Welcome, {user_name}. Search any track, play online results, save favorites, and let the recommendation model shape the next queue.</p>
+                <h1>Your soundboard is ready.</h1>
+                <p>Welcome, {user_name}. Pick a mood, search fast, save your best tracks, and build playlists without digging through a complicated screen.</p>
+                <div class="hero-actions">
+                    <span>Fast search</span>
+                    <span>Mood mixes</span>
+                    <span>Saved library</span>
+                </div>
             </div>
             <div class="hero-deck">
-                <div class="deck-title">Live mood signal</div>
+                <div class="deck-title">EcoWavE Pulse</div>
                 <div class="visualizer">
                     <span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span>
                 </div>
+                <div class="hero-mini-card">Tap any song card, then use Play, Save, Playlist, or Download.</div>
             </div>
         </div>
         """,
@@ -5888,45 +6269,84 @@ def section_nav2(state_key, sections, label="Section"):
     if state_key not in st.session_state or st.session_state[state_key] not in sections:
         st.session_state[state_key] = sections[0]
     current_index = sections.index(st.session_state[state_key])
-    if len(sections) > 4:
-        selected = st.selectbox(
-            label,
-            sections,
-            index=current_index,
-            key=f"{state_key}_mobile_select",
-            label_visibility="collapsed",
-        )
-        if selected != st.session_state[state_key]:
-            st.session_state[state_key] = selected
+    icons = {
+        "Search": "Find",
+        "All Songs": "Songs",
+        "Saved": "Saved",
+        "Playlists": "Mixes",
+        "Artists & Albums": "Albums",
+        "History": "History",
+        "Add Music": "Upload",
+        "Profile": "Me",
+        "EcoWavE Music": "Library",
+        "Online Music": "Online",
+        "Library": "Library",
+        "Add Music": "Add",
+        "Analytics": "Stats",
+    }
+    st.markdown(f'<div class="feature-dock" aria-label="{html.escape(label)}">', unsafe_allow_html=True)
+    nav_cols = st.columns(min(len(sections), 4) if len(sections) <= 4 else 4)
+    for index, section in enumerate(sections):
+        active = section == st.session_state[state_key]
+        button_label = f"{icons.get(section, section)} | {section}" if active else f"{icons.get(section, section)}"
+        if nav_cols[index % len(nav_cols)].button(button_label, key=f"{state_key}_v2_{section}", use_container_width=True):
+            st.session_state[state_key] = section
             st.rerun()
-        return st.session_state[state_key]
-    back_col, choose_col, next_col = st.columns([1, 5, 1])
-    if back_col.button("< Back", key=f"{state_key}_back_v2", disabled=current_index == 0, use_container_width=True):
-        st.session_state[state_key] = sections[current_index - 1]
-        st.rerun()
-    if next_col.button(
-        "Next >",
-        key=f"{state_key}_next_v2",
-        disabled=current_index == len(sections) - 1,
-        use_container_width=True,
-    ):
-        st.session_state[state_key] = sections[current_index + 1]
-        st.rerun()
-    with choose_col:
-        nav_cols = st.columns(len(sections))
-        for index, section in enumerate(sections):
-            active = section == st.session_state[state_key]
-            button_label = section
-            if nav_cols[index].button(button_label, key=f"{state_key}_v2_{section}", use_container_width=True):
-                st.session_state[state_key] = section
-                st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
     return st.session_state[state_key]
+
+
+def feature_overview(user):
+    history = user_history(user["id"])
+    saved = saved_songs(user["id"])
+    playlists = user_playlists(user["id"])
+    last_song = "Start a fresh session" if history.empty else str(history.iloc[0].get("title") or "Recent track")
+    st.markdown(
+        f"""
+        <div class="feature-overview">
+            <div class="feature-tile tile-wide">
+                <span class="tile-kicker">Today</span>
+                <strong>Choose a mood and press Play.</strong>
+                <p>EcoWavE keeps your library, online search, saved songs, playlists, and history in one clean workspace.</p>
+            </div>
+            <div class="feature-tile">
+                <span class="tile-kicker">Saved</span>
+                <strong>{len(saved)}</strong>
+                <p>favorite tracks</p>
+            </div>
+            <div class="feature-tile">
+                <span class="tile-kicker">Mixes</span>
+                <strong>{len(playlists)}</strong>
+                <p>playlists</p>
+            </div>
+            <div class="feature-tile">
+                <span class="tile-kicker">Last played</span>
+                <strong>{html.escape(last_song[:36])}</strong>
+                <p>history remembers your mood</p>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def page_header(title, subtitle, accent="mint"):
+    st.markdown(
+        f"""
+        <div class="page-header accent-{html.escape(accent)}">
+            <span>{html.escape(accent.title())} zone</span>
+            <h2>{html.escape(title)}</h2>
+            <p>{html.escape(subtitle)}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def user_interface(user):
     hero(user)
     st.write("")
-    metric_row(user)
+    feature_overview(user)
     st.write("")
     page = section_nav2(
         "user_page",
@@ -5937,15 +6357,7 @@ def user_interface(user):
     if page == "Search":
         search_page = section_nav2("search_page", ["EcoWavE Music", "Online Music"], "Search section")
         if search_page == "EcoWavE Music":
-            st.markdown(
-                """
-                <div class="section-intro">
-                    <h2>EcoWavE Music</h2>
-                    <p>Recommendations from your EcoWavE library, ranked by mood, favorites, and search intent.</p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            page_header("Mood Mixer", "Pick how you feel, then EcoWavE reshapes your local library into a clean listening queue.", "mint")
             c1, c2 = st.columns([1, 2])
             mood = c1.selectbox("Current mood", MOODS, index=MOODS.index(user.get("favorite_mood") or "Happy"))
             mood_search = c2.text_input(
@@ -5963,15 +6375,7 @@ def user_interface(user):
                 st.caption(f"Showing only {mood} songs")
                 render_song_list(recs, user, f"discover_mood_{mood.lower()}", f"No {mood} songs found in the library.")
         else:
-            st.markdown(
-                """
-                <div class="section-intro online">
-                    <h2>Online Music</h2>
-                    <p>Search online tracks separately, then play or save discoveries into your EcoWavE history.</p>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            page_header("Online Finder", "Search the web for tracks, then play them or save them into your EcoWavE account.", "gold")
             c1, c2 = st.columns([1, 2])
             online_mood = c1.selectbox(
                 "Mood for online results",
@@ -5986,6 +6390,7 @@ def user_interface(user):
             )
             render_online_results(online_search, user, online_mood, "discover_online")
     elif page == "All Songs":
+        page_header("Library Wall", "Browse every track in the EcoWavE collection with one fast search box.", "sky")
         library = songs_df()
         all_search = st.text_input("Search full library", placeholder="Type song name, artist, mood, or genre")
         if all_search:
@@ -6004,6 +6409,7 @@ def user_interface(user):
         else:
             render_song_list(library, user, "all_songs", "No matching songs found in the local library.")
     elif page == "Saved":
+        page_header("Saved Vault", "Everything you marked as important, ready for quick replay.", "rose")
         saved = saved_songs(user["id"])
         if saved.empty:
             st.info("Saved music will appear here.")
@@ -6012,13 +6418,16 @@ def user_interface(user):
     elif page == "Playlists":
         playlists_section(user)
     elif page == "Artists & Albums":
+        page_header("Artist Gallery", "Jump by artist or album when you already know the sound you want.", "mint")
         artists_albums_section(user)
     elif page == "History":
         history_section(user)
     elif page == "Add Music":
+        page_header("Add A Track", "Bring a direct music link into your EcoWavE library.", "gold")
         add_music_form(user, "Add Your Music")
         st.caption("Your added music becomes part of the shared active library.")
     elif page == "Profile":
+        page_header("Profile Studio", "Update your name, favorite mood, bio, and profile photo.", "sky")
         profile_section(user)
 
 
