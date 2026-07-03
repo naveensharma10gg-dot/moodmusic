@@ -5697,76 +5697,133 @@ def render_auto_queue_player(queue, start_index=0):
         <style>
             .ew-player {{
                 font-family: "Segoe UI", Arial, sans-serif;
-                color: #f8fbff;
-                min-height: 360px;
-                border: 1px solid rgba(255,255,255,.16);
-                border-radius: 26px;
+                color: #2b2029;
+                min-height: 620px;
+                border: 1px solid rgba(255,255,255,.42);
+                border-radius: 34px;
                 background:
-                    radial-gradient(circle at 18% 18%, rgba(38,232,180,.28), transparent 30%),
-                    radial-gradient(circle at 88% 18%, rgba(255,107,107,.20), transparent 28%),
-                    linear-gradient(135deg, rgba(11,15,20,.97), rgba(22,26,34,.95));
+                    linear-gradient(150deg, rgba(255,255,255,.92), rgba(255,246,242,.78) 38%, rgba(76,58,89,.92) 100%),
+                    radial-gradient(circle at 18% 0%, rgba(255,166,117,.72), transparent 34%),
+                    radial-gradient(circle at 88% 18%, rgba(255,112,96,.54), transparent 32%),
+                    linear-gradient(135deg, #ffd5bd, #57435c);
                 overflow: hidden;
-                box-shadow: 0 24px 80px rgba(0,0,0,.36);
+                box-shadow: 0 34px 90px rgba(0,0,0,.34);
+                position: relative;
+            }}
+            .ew-player::before {{
+                content: "";
+                position: absolute;
+                inset: 0;
+                background:
+                    linear-gradient(165deg, rgba(255,255,255,.44), transparent 45%),
+                    radial-gradient(circle at 62% 78%, rgba(255,126,78,.26), transparent 32%);
+                pointer-events: none;
             }}
             .ew-player-shell {{
+                position: relative;
+                z-index: 1;
+                max-width: 440px;
+                min-height: 620px;
+                margin: 0 auto;
+                padding: 28px 30px 24px;
+                display: flex;
+                flex-direction: column;
+            }}
+            .ew-topbar {{
                 display: grid;
-                grid-template-columns: 230px minmax(0, 1fr);
-                gap: 24px;
-                padding: 26px;
+                grid-template-columns: 38px 1fr 38px;
                 align-items: center;
+                color: rgba(43,32,41,.66);
+                font-weight: 900;
+                margin-bottom: 26px;
+            }}
+            .ew-topbar button {{
+                border: 0;
+                background: rgba(255,255,255,.45);
+                color: rgba(43,32,41,.75);
+                border-radius: 50%;
+                width: 38px;
+                height: 38px;
+                font-size: 20px;
+                cursor: pointer;
+            }}
+            .ew-topbar div {{
+                text-align: center;
+                line-height: 1.15;
+            }}
+            .ew-topbar small {{
+                display: block;
+                color: rgba(43,32,41,.46);
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 5px;
+                margin-bottom: 3px;
             }}
             .ew-art {{
                 aspect-ratio: 1;
-                border-radius: 24px;
+                width: min(100%, 330px);
+                margin: 0 auto 24px;
+                border-radius: 4px;
                 background:
-                    linear-gradient(135deg, #26e8b4, #64b5f6 46%, #ff6b6b);
-                box-shadow: 0 28px 70px rgba(0,0,0,.42);
+                    linear-gradient(135deg, #ff8b60, #ffe1b2 42%, #d64072);
+                box-shadow: 0 30px 70px rgba(72,35,44,.28);
                 position: relative;
                 overflow: hidden;
+                border: 1px solid rgba(255,255,255,.6);
             }}
             .ew-art.has-cover {{
                 background-size: cover;
                 background-position: center;
             }}
             .ew-art::after {{
-                content: "EcoWavE";
+                content: "NOW PLAYING";
                 position: absolute;
-                left: 16px;
-                bottom: 14px;
+                left: 14px;
+                top: 12px;
                 padding: 7px 10px;
                 border-radius: 999px;
-                background: rgba(0,0,0,.52);
+                background: rgba(255,255,255,.72);
                 color: #fff;
                 font-weight: 900;
+                color: rgba(43,32,41,.72);
                 font-size: 12px;
-                letter-spacing: 0;
             }}
-            .ew-kicker {{
-                color: #26e8b4;
-                font-size: 12px;
-                font-weight: 950;
-                text-transform: uppercase;
-                margin-bottom: 8px;
+            .ew-info-row {{
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 46px;
+                gap: 16px;
+                align-items: start;
             }}
             .ew-title {{
                 margin: 0;
-                color: #fff;
-                font-size: clamp(26px, 5vw, 48px);
-                line-height: 1;
+                color: #2b2029;
+                font-size: clamp(25px, 5vw, 34px);
+                line-height: 1.05;
                 font-weight: 950;
                 letter-spacing: 0;
-                max-width: 900px;
+                max-width: 360px;
             }}
             .ew-artist {{
-                color: rgba(248,251,255,.68);
-                margin-top: 10px;
-                font-size: 17px;
+                color: rgba(43,32,41,.58);
+                margin-top: 8px;
+                font-size: 14px;
                 font-weight: 750;
+            }}
+            .ew-heart {{
+                border: 0;
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                color: #ff7a45;
+                background: rgba(255,255,255,.52);
+                font-size: 25px;
+                box-shadow: 0 14px 28px rgba(91,48,58,.16);
             }}
             .ew-controls {{
                 display: flex;
                 align-items: center;
-                gap: 14px;
+                justify-content: center;
+                gap: 24px;
                 margin: 26px 0 18px;
             }}
             .ew-btn {{
@@ -5777,43 +5834,65 @@ def render_auto_queue_player(queue, start_index=0):
                 display: grid;
                 place-items: center;
                 cursor: pointer;
-                background: rgba(255,255,255,.12);
-                color: #fff;
-                font-size: 20px;
+                background: transparent;
+                color: rgba(43,32,41,.62);
+                font-size: 24px;
                 font-weight: 950;
             }}
             .ew-btn:hover {{
-                background: rgba(255,255,255,.2);
+                background: rgba(255,255,255,.32);
             }}
             .ew-play {{
-                width: 68px;
-                height: 68px;
-                background: #26e8b4;
-                color: #03120f;
-                font-size: 28px;
-                box-shadow: 0 16px 34px rgba(38,232,180,.28);
+                width: 72px;
+                height: 72px;
+                background: rgba(43,32,41,.78);
+                color: #fff5ef;
+                font-size: 30px;
+                box-shadow: 0 18px 38px rgba(43,32,41,.24);
+            }}
+            .ew-wave {{
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                height: 52px;
+                margin: 20px 0 4px;
+                cursor: pointer;
+            }}
+            .ew-wave span {{
+                flex: 1;
+                max-width: 6px;
+                min-width: 3px;
+                height: var(--h);
+                border-radius: 999px;
+                background: rgba(43,32,41,.32);
+                transition: background .18s ease, transform .18s ease;
+            }}
+            .ew-wave span.active {{
+                background: #ff7a45;
+                transform: scaleY(1.08);
             }}
             .ew-bars {{
                 display: grid;
                 grid-template-columns: 48px minmax(0, 1fr) 48px;
                 gap: 12px;
                 align-items: center;
-                color: rgba(248,251,255,.68);
+                color: rgba(43,32,41,.56);
                 font-size: 13px;
                 font-weight: 800;
                 font-variant-numeric: tabular-nums;
             }}
             .ew-range {{
                 width: 100%;
-                accent-color: #26e8b4;
+                accent-color: #ff7a45;
             }}
             .ew-footer {{
                 display: flex;
                 justify-content: space-between;
                 gap: 18px;
                 align-items: center;
+                margin-top: auto;
                 padding-top: 18px;
-                color: rgba(248,251,255,.7);
+                color: rgba(43,32,41,.58);
                 font-weight: 800;
             }}
             .ew-volume {{
@@ -5823,11 +5902,11 @@ def render_auto_queue_player(queue, start_index=0):
                 min-width: 230px;
             }}
             .ew-pill {{
-                border: 1px solid rgba(255,255,255,.16);
+                border: 1px solid rgba(255,255,255,.36);
                 border-radius: 999px;
                 padding: 8px 12px;
-                background: rgba(255,255,255,.08);
-                color: #fff;
+                background: rgba(255,255,255,.34);
+                color: rgba(43,32,41,.66);
                 font-size: 13px;
             }}
             audio {{
@@ -5835,15 +5914,14 @@ def render_auto_queue_player(queue, start_index=0):
             }}
             @media (max-width: 720px) {{
                 .ew-player-shell {{
-                    grid-template-columns: 1fr;
                     padding: 18px;
+                    min-height: 600px;
                 }}
                 .ew-art {{
-                    width: min(72vw, 260px);
-                    margin: 0 auto;
+                    width: min(78vw, 320px);
                 }}
                 .ew-title {{
-                    font-size: 30px;
+                    font-size: 27px;
                 }}
                 .ew-footer {{
                     align-items: flex-start;
@@ -5857,20 +5935,30 @@ def render_auto_queue_player(queue, start_index=0):
         </style>
         <div class="ew-player">
             <div class="ew-player-shell">
+                <div class="ew-topbar">
+                    <button type="button" aria-label="Collapse player">⌄</button>
+                    <div><small>Now playing</small><strong>Favorite songs</strong></div>
+                    <button type="button" aria-label="More options">⋯</button>
+                </div>
                 <div id="queue-art-{player_id}" class="ew-art"></div>
                 <div>
-                    <div class="ew-kicker">Now playing</div>
-                    <h1 id="queue-title-{player_id}" class="ew-title">Ready</h1>
-                    <div id="queue-artist-{player_id}" class="ew-artist">EcoWavE Player</div>
+                    <div class="ew-info-row">
+                        <div>
+                            <h1 id="queue-title-{player_id}" class="ew-title">Ready</h1>
+                            <div id="queue-artist-{player_id}" class="ew-artist">EcoWavE Player</div>
+                        </div>
+                        <button class="ew-heart" type="button" aria-label="Favorite">♥</button>
+                    </div>
+                    <div id="queue-wave-{player_id}" class="ew-wave" aria-label="Song waveform"></div>
+                    <div class="ew-bars">
+                        <span id="queue-current-{player_id}">0:00</span>
+                        <input id="queue-progress-{player_id}" class="ew-range" type="range" min="0" max="1000" value="0" aria-label="Progress">
+                        <span id="queue-total-{player_id}">0:00</span>
+                    </div>
                     <div class="ew-controls">
                         <button class="ew-btn" id="queue-prev-{player_id}" type="button" aria-label="Previous track">‹</button>
                         <button class="ew-btn ew-play" id="queue-play-{player_id}" type="button" aria-label="Play or pause">▶</button>
                         <button class="ew-btn" id="queue-next-{player_id}" type="button" aria-label="Next track">›</button>
-                    </div>
-                    <div class="ew-bars">
-                        <span id="queue-current-{player_id}">0:00</span>
-                        <input id="queue-progress-{player_id}" class="ew-range" type="range" min="0" max="1000" value="0">
-                        <span id="queue-total-{player_id}">0:00</span>
                     </div>
                     <div class="ew-footer">
                         <div id="queue-count-{player_id}" class="ew-pill">Preparing queue</div>
@@ -5900,6 +5988,10 @@ def render_auto_queue_player(queue, start_index=0):
             const progress = document.getElementById("queue-progress-{player_id}");
             const current = document.getElementById("queue-current-{player_id}");
             const total = document.getElementById("queue-total-{player_id}");
+            const wave = document.getElementById("queue-wave-{player_id}");
+            const heights = [20,32,26,38,44,28,18,35,48,24,42,30,50,36,22,46,34,26,44,52,30,18,40,28,48,34,24,44,32,20,50,36,28,42,24,46,34,18,40,30,52,36,22,44,28,48,32,24];
+            wave.innerHTML = heights.map((h) => `<span style="--h:${{h}}px"></span>`).join("");
+            const waveBars = Array.from(wave.querySelectorAll("span"));
             audio.volume = 1.0;
             function fmt(seconds) {{
                 seconds = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
@@ -5950,11 +6042,20 @@ def render_auto_queue_player(queue, start_index=0):
                     audio.currentTime = (Number(progress.value) / 1000) * audio.duration;
                 }}
             }});
+            wave.addEventListener("click", (event) => {{
+                if (!audio.duration) return;
+                const box = wave.getBoundingClientRect();
+                const ratio = Math.max(0, Math.min(1, (event.clientX - box.left) / box.width));
+                audio.currentTime = ratio * audio.duration;
+            }});
             audio.addEventListener("timeupdate", () => {{
                 current.textContent = fmt(audio.currentTime);
                 if (audio.duration) {{
                     total.textContent = fmt(audio.duration);
-                    progress.value = Math.round((audio.currentTime / audio.duration) * 1000);
+                    const ratio = audio.currentTime / audio.duration;
+                    progress.value = Math.round(ratio * 1000);
+                    const activeCount = Math.round(ratio * waveBars.length);
+                    waveBars.forEach((bar, i) => bar.classList.toggle("active", i <= activeCount));
                 }}
             }});
             audio.addEventListener("playing", () => {{ errorSkips = 0; play.textContent = "Ⅱ"; }});
@@ -5973,7 +6074,7 @@ def render_auto_queue_player(queue, start_index=0):
         }})();
         </script>
         """,
-        height=410,
+        height=650,
     )
     if skipped:
         st.caption(f"{len(skipped)} song(s) could not be prepared for this queue.")
