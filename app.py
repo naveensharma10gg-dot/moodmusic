@@ -4524,6 +4524,209 @@ def inject_styles():
                 max-width: none !important;
             }
         }
+
+        /* Reference-inspired phone player details */
+        .phone-preview {
+            position: relative;
+            z-index: 1;
+            width: min(340px, 100%);
+            min-height: 520px;
+            justify-self: end;
+            border-radius: 42px;
+            padding: 24px 24px 22px;
+            background:
+                linear-gradient(180deg, rgba(65,54,78,.95), rgba(43,36,48,.98));
+            border: 5px solid rgba(35,45,60,.95);
+            outline: 3px solid rgba(93,176,226,.85);
+            box-shadow: 0 34px 90px rgba(43,36,48,.32);
+            color: #fff6f1;
+        }
+        .phone-preview::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            width: 78px;
+            height: 18px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: rgba(14,13,20,.86);
+        }
+        .phone-top {
+            text-align: center;
+            margin: 22px 0 22px;
+        }
+        .phone-top span {
+            display: block;
+            color: rgba(255,246,241,.62);
+            font-size: .72rem;
+            font-weight: 800;
+        }
+        .phone-top strong {
+            color: #fff6f1;
+            font-size: 1.18rem;
+        }
+        .phone-cover {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            background:
+                linear-gradient(160deg, #55c7c9 0 26%, #ffd166 26% 48%, #ff7a45 48% 72%, #9c355e 72% 100%);
+            box-shadow: 0 24px 58px rgba(0,0,0,.28);
+        }
+        .cover-sun {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            right: -32px;
+            top: 28px;
+            border-radius: 50%;
+            background: rgba(255,246,241,.72);
+        }
+        .cover-tree {
+            position: absolute;
+            left: 50%;
+            bottom: 38px;
+            width: 18px;
+            height: 118px;
+            transform: translateX(-50%);
+            border-radius: 999px;
+            background: #773348;
+        }
+        .cover-tree::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -58px;
+            width: 150px;
+            height: 116px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 25% 34%, #ff4f83 0 8px, transparent 9px),
+                radial-gradient(circle at 62% 24%, #ff7a45 0 9px, transparent 10px),
+                radial-gradient(circle at 76% 68%, #ff4f83 0 7px, transparent 8px),
+                radial-gradient(circle at 44% 70%, #ffc94c 0 8px, transparent 9px),
+                rgba(191,56,91,.84);
+        }
+        .phone-cover span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 48%;
+            text-align: center;
+            color: rgba(255,246,241,.86);
+            font-size: 2.1rem;
+            font-weight: 300;
+            letter-spacing: 10px !important;
+            text-transform: uppercase;
+        }
+        .phone-track {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin: 18px 0 12px;
+        }
+        .phone-track strong {
+            display: block;
+            color: #fff6f1;
+            font-size: 1.08rem;
+            font-weight: 950;
+        }
+        .phone-track span {
+            display: block;
+            color: rgba(255,246,241,.6);
+            font-size: .78rem;
+            font-weight: 750;
+            margin-top: 4px;
+        }
+        .phone-track b {
+            color: var(--phone-coral);
+            font-size: 1.6rem;
+        }
+        .phone-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 42px;
+            margin: 10px 0 20px;
+        }
+        .phone-wave i {
+            flex: 1;
+            border-radius: 999px;
+            background: rgba(255,246,241,.56);
+        }
+        .phone-wave i:nth-child(1), .phone-wave i:nth-child(7), .phone-wave i:nth-child(12) { height: 16px; background: var(--phone-coral); }
+        .phone-wave i:nth-child(2), .phone-wave i:nth-child(9), .phone-wave i:nth-child(14) { height: 28px; background: #ff945f; }
+        .phone-wave i:nth-child(3), .phone-wave i:nth-child(6), .phone-wave i:nth-child(15) { height: 34px; }
+        .phone-wave i:nth-child(4), .phone-wave i:nth-child(11) { height: 22px; }
+        .phone-wave i:nth-child(5), .phone-wave i:nth-child(10), .phone-wave i:nth-child(16) { height: 38px; }
+        .phone-wave i:nth-child(8), .phone-wave i:nth-child(13) { height: 25px; }
+        .phone-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 28px;
+        }
+        .phone-controls span,
+        .phone-controls strong {
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: rgba(255,246,241,.82);
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .phone-controls strong {
+            width: 68px;
+            height: 68px;
+            background: rgba(255,246,241,.2);
+            color: #fff6f1;
+        }
+        .hero.ew-studio-hero {
+            grid-template-columns: minmax(0, 1fr) minmax(300px, 380px) !important;
+            align-items: center !important;
+            overflow: visible !important;
+        }
+        .page-header {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .feature-tile.tile-wide {
+            background:
+                linear-gradient(140deg, rgba(77,64,88,.92), rgba(255,122,69,.66)) !important;
+            color: #fff6f1 !important;
+        }
+        .feature-tile.tile-wide .tile-kicker,
+        .feature-tile.tile-wide strong,
+        .feature-tile.tile-wide p {
+            color: #fff6f1 !important;
+        }
+        @media (max-width: 920px) {
+            .hero.ew-studio-hero {
+                grid-template-columns: 1fr !important;
+            }
+            .phone-preview {
+                justify-self: center;
+                min-height: 470px;
+                width: min(320px, 92vw);
+            }
+        }
+        @media (max-width: 760px) {
+            .phone-preview {
+                min-height: 440px;
+                padding: 20px;
+                border-radius: 36px;
+            }
+            .phone-cover span {
+                font-size: 1.6rem;
+                letter-spacing: 7px !important;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -6474,13 +6677,30 @@ def hero(user):
                     <span>Saved library</span>
                 </div>
             </div>
-            <div class="hero-deck">
-                <div class="deck-title">EcoWavE Pulse</div>
-                <div class="visualizer">
-                    <span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span>
+            <div class="phone-preview">
+                <div class="phone-top">
+                    <span>Playing from</span>
+                    <strong>Favorite songs</strong>
                 </div>
-                <div class="hero-mini-card">Tap any song card, then use Play, Save, Playlist, or Download.</div>
+                <div class="phone-cover">
+                    <div class="cover-sun"></div>
+                    <div class="cover-tree"></div>
+                    <span>EcoWavE</span>
+                </div>
+                <div class="phone-track">
+                    <div>
+                        <strong>Seasons of Mood</strong>
+                        <span>{APP_TITLE} mix for {user_name}</span>
+                    </div>
+                    <b>♥</b>
+                </div>
+                <div class="phone-wave">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="phone-controls">
+                    <span>‹</span><strong>Ⅱ</strong><span>›</span>
+                </div>
             </div>
         </div>
         """,
