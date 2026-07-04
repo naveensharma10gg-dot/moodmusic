@@ -4190,6 +4190,340 @@ def inject_styles():
                 max-width: none !important;
             }
         }
+
+        /* Full app skin inspired by the provided creative mobile music UI */
+        :root {
+            --phone-cream: #fff6f1;
+            --phone-peach: #ffc09f;
+            --phone-coral: #ff7a45;
+            --phone-plum: #4d4058;
+            --phone-ink: #2c2430;
+            --phone-muted: rgba(44,36,48,.62);
+            --phone-line: rgba(77,64,88,.16);
+            --phone-glass: rgba(255,255,255,.72);
+        }
+        .stApp {
+            background:
+                radial-gradient(circle at 10% 10%, rgba(255,255,255,.45), transparent 28%),
+                radial-gradient(circle at 92% 18%, rgba(255,122,69,.28), transparent 32%),
+                linear-gradient(164deg, #ffc09f 0 30%, #ffd6c4 30% 47%, #f7a67e 47% 64%, #f7d0c2 64% 100%) !important;
+            color: var(--phone-ink) !important;
+        }
+        .stApp::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(165deg, transparent 0 35%, rgba(255,255,255,.34) 35% 48%, transparent 48% 100%),
+                linear-gradient(12deg, transparent 0 58%, rgba(77,64,88,.16) 58% 72%, transparent 72% 100%);
+            opacity: .9;
+        }
+        .main .block-container {
+            max-width: 1180px !important;
+            margin-top: 16px !important;
+            border: 1px solid rgba(255,255,255,.58) !important;
+            border-radius: 34px !important;
+            background: rgba(255,246,241,.74) !important;
+            box-shadow: 0 34px 90px rgba(89,45,48,.24) !important;
+            backdrop-filter: blur(20px) !important;
+            color: var(--phone-ink) !important;
+        }
+        [data-testid="stSidebar"] {
+            background: linear-gradient(180deg, rgba(77,64,88,.94), rgba(43,36,48,.98)) !important;
+            border-right: 1px solid rgba(255,255,255,.16) !important;
+        }
+        [data-testid="stSidebar"] * {
+            color: rgba(255,246,241,.82) !important;
+        }
+        .ew-studio-hero,
+        .hero,
+        .welcome-stage {
+            min-height: 410px !important;
+            border-radius: 32px !important;
+            border: 1px solid rgba(255,255,255,.66) !important;
+            background:
+                linear-gradient(155deg, rgba(255,255,255,.86) 0 36%, rgba(255,211,192,.76) 36% 58%, rgba(77,64,88,.92) 58% 100%) !important;
+            color: var(--phone-ink) !important;
+            box-shadow: 0 30px 80px rgba(89,45,48,.22) !important;
+        }
+        .ew-studio-hero::before,
+        .hero::before {
+            background:
+                radial-gradient(circle at 22% 16%, rgba(255,122,69,.22), transparent 24%),
+                linear-gradient(162deg, transparent 0 48%, rgba(255,255,255,.35) 48% 60%, transparent 60%) !important;
+            opacity: 1 !important;
+            mask-image: none !important;
+        }
+        .hero h1,
+        .welcome-stage h1 {
+            color: var(--phone-ink) !important;
+            max-width: 650px !important;
+            font-size: clamp(2.4rem, 5.4vw, 4.6rem) !important;
+            text-shadow: none !important;
+        }
+        .hero p,
+        .welcome-stage p {
+            color: var(--phone-muted) !important;
+            font-weight: 750 !important;
+        }
+        .brand-name,
+        .brand-copy .brand-name {
+            color: var(--phone-ink) !important;
+        }
+        .brand-subtitle,
+        .brand-copy .brand-subtitle {
+            color: var(--phone-muted) !important;
+        }
+        .hero-actions span,
+        .mood-chip {
+            border: 1px solid rgba(77,64,88,.14) !important;
+            background: rgba(255,255,255,.62) !important;
+            color: var(--phone-plum) !important;
+            box-shadow: 0 12px 28px rgba(89,45,48,.12) !important;
+        }
+        .hero-deck,
+        .welcome-player {
+            background:
+                linear-gradient(180deg, rgba(77,64,88,.94), rgba(43,36,48,.94)) !important;
+            border: 1px solid rgba(255,255,255,.24) !important;
+            border-radius: 28px !important;
+            box-shadow: 0 26px 70px rgba(43,36,48,.24) !important;
+        }
+        .deck-title,
+        .welcome-trackline,
+        .hero-mini-card {
+            color: rgba(255,246,241,.78) !important;
+        }
+        .visualizer span {
+            background: var(--phone-coral) !important;
+            box-shadow: none !important;
+        }
+        .feature-overview {
+            grid-template-columns: 1.25fr repeat(3, minmax(150px, 1fr)) !important;
+            gap: 16px !important;
+        }
+        .feature-tile,
+        .metric-card,
+        .profile-panel,
+        .playlist-player,
+        .section-intro {
+            border: 1px solid rgba(255,255,255,.58) !important;
+            border-radius: 26px !important;
+            background: rgba(255,255,255,.56) !important;
+            box-shadow: 0 22px 54px rgba(89,45,48,.16) !important;
+            color: var(--phone-ink) !important;
+        }
+        .feature-tile strong,
+        .metric-card .value,
+        .profile-head h2,
+        .section-intro h2 {
+            color: var(--phone-ink) !important;
+        }
+        .feature-tile p,
+        .metric-card .label,
+        .profile-head p,
+        .section-intro p {
+            color: var(--phone-muted) !important;
+        }
+        .tile-kicker,
+        .page-header span {
+            color: var(--phone-coral) !important;
+        }
+        .feature-dock + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button {
+            min-height: 58px !important;
+            border-radius: 999px !important;
+            border: 1px solid rgba(255,255,255,.62) !important;
+            background: rgba(255,255,255,.62) !important;
+            color: var(--phone-plum) !important;
+            box-shadow: 0 18px 42px rgba(89,45,48,.14) !important;
+        }
+        .feature-dock + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover {
+            background: var(--phone-plum) !important;
+            color: #fff6f1 !important;
+            border-color: rgba(77,64,88,.2) !important;
+            transform: translateY(-2px) !important;
+        }
+        .page-header {
+            border: 1px solid rgba(255,255,255,.62) !important;
+            border-radius: 30px !important;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,214,196,.58)) !important;
+            box-shadow: 0 24px 58px rgba(89,45,48,.16) !important;
+            color: var(--phone-ink) !important;
+        }
+        .page-header::after {
+            background: var(--phone-coral) !important;
+            opacity: .18 !important;
+        }
+        .page-header h2 {
+            color: var(--phone-ink) !important;
+        }
+        .page-header p {
+            color: var(--phone-muted) !important;
+        }
+        .song-card {
+            border: 1px solid rgba(255,255,255,.64) !important;
+            border-radius: 28px !important;
+            margin: 14px 0 0 !important;
+            padding: 16px !important;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,235,224,.58)) !important;
+            box-shadow: 0 24px 58px rgba(89,45,48,.14) !important;
+            color: var(--phone-ink) !important;
+        }
+        .song-card:hover {
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.86), rgba(255,218,200,.72)) !important;
+            border-color: rgba(255,122,69,.44) !important;
+            transform: translateY(-2px) !important;
+        }
+        .track-row {
+            grid-template-columns: 34px 76px minmax(0, 1fr) minmax(110px, 210px) 58px !important;
+            gap: 16px !important;
+        }
+        .track-index,
+        .track-album,
+        .track-duration {
+            color: rgba(43,36,48,.56) !important;
+        }
+        .album-mark {
+            width: 76px !important;
+            height: 76px !important;
+            min-width: 76px !important;
+            border-radius: 18px !important;
+            box-shadow: 0 18px 38px rgba(89,45,48,.18) !important;
+        }
+        .real-cover,
+        .creative-cover {
+            border-radius: 18px !important;
+        }
+        .creative-cover {
+            background:
+                linear-gradient(135deg, #ff7a45, #ffd166 48%, #4d4058) !important;
+        }
+        .song-card h3 {
+            color: var(--phone-ink) !important;
+            font-size: 1.06rem !important;
+        }
+        .song-card .meta,
+        .song-card .meta span:not(.pill) {
+            color: var(--phone-muted) !important;
+        }
+        .pill {
+            color: #fff6f1 !important;
+            border: 0 !important;
+            background: var(--phone-coral) !important;
+            padding: 5px 10px !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] {
+            margin: 8px 0 16px 126px !important;
+            max-width: 520px !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button {
+            min-height: 42px !important;
+            height: 42px !important;
+            border-radius: 999px !important;
+            border: 1px solid rgba(77,64,88,.12) !important;
+            background: rgba(255,255,255,.74) !important;
+            color: var(--phone-plum) !important;
+            box-shadow: 0 12px 26px rgba(89,45,48,.12) !important;
+        }
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button:hover,
+        div[data-testid="stButton"] > button:hover,
+        div[data-testid="stFormSubmitButton"] > button:hover,
+        div[data-testid="stDownloadButton"] > button:hover {
+            background: var(--phone-coral) !important;
+            color: #fff6f1 !important;
+        }
+        div[data-testid="stButton"] > button,
+        div[data-testid="stFormSubmitButton"] > button,
+        div[data-testid="stDownloadButton"] > button,
+        div[data-testid="stLinkButton"] > a {
+            border-radius: 999px !important;
+            background: var(--phone-plum) !important;
+            color: #fff6f1 !important;
+            border: 0 !important;
+            box-shadow: 0 16px 34px rgba(77,64,88,.18) !important;
+        }
+        div[data-testid="stTextInput"] label,
+        div[data-testid="stTextArea"] label,
+        div[data-testid="stSelectbox"] label,
+        div[data-testid="stNumberInput"] label {
+            color: var(--phone-ink) !important;
+        }
+        div[data-testid="stTextInput"] input,
+        div[data-testid="stTextArea"] textarea,
+        div[data-testid="stNumberInput"] input,
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+            border: 1px solid rgba(77,64,88,.14) !important;
+            border-radius: 18px !important;
+            background: rgba(255,255,255,.68) !important;
+            color: var(--phone-ink) !important;
+        }
+        div[data-testid="stTextInput"] input::placeholder,
+        div[data-testid="stTextArea"] textarea::placeholder {
+            color: rgba(43,36,48,.42) !important;
+        }
+        div[data-testid="stSelectbox"] * {
+            color: var(--phone-ink) !important;
+        }
+        [data-testid="stAlert"] {
+            border: 1px solid rgba(77,64,88,.12) !important;
+            border-radius: 22px !important;
+            background: rgba(255,255,255,.66) !important;
+            color: var(--phone-ink) !important;
+        }
+        .stMarkdown,
+        .stCaptionContainer,
+        label,
+        p,
+        span,
+        div {
+            color: inherit;
+        }
+        @media (max-width: 760px) {
+            .main .block-container {
+                margin-top: 0 !important;
+                border-radius: 0 !important;
+                border: 0 !important;
+                padding: 12px 10px 94px !important;
+                background: rgba(255,246,241,.82) !important;
+            }
+            .ew-studio-hero,
+            .hero,
+            .welcome-stage {
+                min-height: 360px !important;
+                border-radius: 28px !important;
+                padding: 20px !important;
+            }
+            .hero h1 {
+                font-size: 2.2rem !important;
+            }
+            .feature-overview {
+                grid-template-columns: 1fr !important;
+            }
+            .track-row {
+                grid-template-columns: 64px minmax(0, 1fr) !important;
+                gap: 12px !important;
+            }
+            .album-mark {
+                width: 64px !important;
+                height: 64px !important;
+                min-width: 64px !important;
+            }
+            .track-index,
+            .track-album,
+            .track-duration {
+                display: none !important;
+            }
+            .song-card + div[data-testid="stHorizontalBlock"] {
+                margin: 8px 0 16px !important;
+                max-width: none !important;
+            }
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -6365,7 +6699,6 @@ def history_section(user):
             menu,
         )
         render_download_audio_control(row["title"], row["source_url"], f"history_{int(row['id'])}_{int(row['song_id'])}", menu)
-        c2.caption(f"{row['artist']} - {row.get('album') or 'Single'}")
         if is_current_player(player_key):
             render_now_playing(row["title"], row["artist"])
             source_view(row["source_url"])
