@@ -4727,6 +4727,131 @@ def inject_styles():
                 letter-spacing: 7px !important;
             }
         }
+
+        /* Harmonized palette pass: berry, lavender, ivory, and coral */
+        :root {
+            --phone-cream: #fff8f3;
+            --phone-peach: #f2c9bd;
+            --phone-coral: #e96b4a;
+            --phone-plum: #35283f;
+            --phone-ink: #2b2433;
+            --phone-muted: rgba(43,36,51,.62);
+            --phone-line: rgba(53,40,63,.14);
+            --phone-glass: rgba(255,248,243,.76);
+            --phone-lavender: #d7c8e8;
+            --phone-rose: #e8b8c7;
+            --phone-sage: #9fb8ad;
+        }
+        .stApp {
+            background:
+                radial-gradient(circle at 12% 10%, rgba(215,200,232,.58), transparent 30%),
+                radial-gradient(circle at 88% 18%, rgba(232,184,199,.45), transparent 34%),
+                linear-gradient(145deg, #2f2738 0%, #4b3446 34%, #cfa9b9 68%, #fff8f3 100%) !important;
+        }
+        .stApp::before {
+            background:
+                linear-gradient(160deg, transparent 0 32%, rgba(255,248,243,.28) 32% 47%, transparent 47% 100%),
+                linear-gradient(12deg, transparent 0 60%, rgba(215,200,232,.26) 60% 74%, transparent 74% 100%) !important;
+        }
+        .main .block-container {
+            background: rgba(255,248,243,.78) !important;
+            box-shadow: 0 34px 90px rgba(47,39,56,.26) !important;
+        }
+        .ew-studio-hero,
+        .hero,
+        .welcome-stage {
+            background:
+                linear-gradient(145deg, rgba(255,248,243,.9) 0 35%, rgba(215,200,232,.74) 35% 58%, rgba(53,40,63,.92) 58% 100%) !important;
+            box-shadow: 0 30px 80px rgba(47,39,56,.24) !important;
+        }
+        .ew-studio-hero::before,
+        .hero::before {
+            background:
+                radial-gradient(circle at 20% 17%, rgba(232,184,199,.42), transparent 25%),
+                linear-gradient(160deg, transparent 0 48%, rgba(255,248,243,.34) 48% 61%, transparent 61%) !important;
+        }
+        .hero-actions span,
+        .mood-chip,
+        .feature-tile,
+        .metric-card,
+        .profile-panel,
+        .playlist-player,
+        .section-intro,
+        .page-header,
+        .song-card,
+        [data-testid="stAlert"] {
+            border-color: rgba(255,248,243,.64) !important;
+            background: rgba(255,248,243,.66) !important;
+            box-shadow: 0 22px 54px rgba(47,39,56,.16) !important;
+        }
+        .page-header {
+            background:
+                linear-gradient(145deg, rgba(255,248,243,.82), rgba(215,200,232,.5)) !important;
+        }
+        .song-card {
+            background:
+                linear-gradient(145deg, rgba(255,248,243,.84), rgba(232,184,199,.34)) !important;
+        }
+        .song-card:hover {
+            background:
+                linear-gradient(145deg, rgba(255,248,243,.94), rgba(215,200,232,.5)) !important;
+            border-color: rgba(233,107,74,.42) !important;
+        }
+        .feature-tile.tile-wide {
+            background:
+                linear-gradient(140deg, rgba(53,40,63,.94), rgba(135,91,116,.84)) !important;
+        }
+        .phone-preview {
+            background:
+                linear-gradient(180deg, rgba(53,40,63,.97), rgba(37,31,45,.98)) !important;
+            border-color: rgba(33,39,53,.94) !important;
+            outline-color: rgba(159,184,173,.78) !important;
+        }
+        .phone-cover {
+            background:
+                linear-gradient(160deg, #9fb8ad 0 27%, #d7c8e8 27% 50%, #e8b8c7 50% 73%, #875b74 73% 100%) !important;
+        }
+        .cover-tree {
+            background: #513047 !important;
+        }
+        .cover-tree::before {
+            background:
+                radial-gradient(circle at 25% 34%, #e96b4a 0 8px, transparent 9px),
+                radial-gradient(circle at 62% 24%, #d7c8e8 0 9px, transparent 10px),
+                radial-gradient(circle at 76% 68%, #e8b8c7 0 7px, transparent 8px),
+                radial-gradient(circle at 44% 70%, #9fb8ad 0 8px, transparent 9px),
+                rgba(135,91,116,.86) !important;
+        }
+        .creative-cover {
+            background:
+                linear-gradient(135deg, #e96b4a, #d7c8e8 48%, #35283f) !important;
+        }
+        .phone-wave i:nth-child(1),
+        .phone-wave i:nth-child(7),
+        .phone-wave i:nth-child(12) {
+            background: var(--phone-coral) !important;
+        }
+        .phone-wave i:nth-child(2),
+        .phone-wave i:nth-child(9),
+        .phone-wave i:nth-child(14) {
+            background: var(--phone-sage) !important;
+        }
+        .pill,
+        div[data-testid="stButton"] > button:hover,
+        div[data-testid="stFormSubmitButton"] > button:hover,
+        div[data-testid="stDownloadButton"] > button:hover,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] > button:hover,
+        .song-card + div[data-testid="stHorizontalBlock"] div[data-testid="stDownloadButton"] > button:hover {
+            background: var(--phone-coral) !important;
+            color: var(--phone-cream) !important;
+        }
+        div[data-testid="stButton"] > button,
+        div[data-testid="stFormSubmitButton"] > button,
+        div[data-testid="stDownloadButton"] > button,
+        div[data-testid="stLinkButton"] > a {
+            background: var(--phone-plum) !important;
+            color: var(--phone-cream) !important;
+        }
         </style>
         """,
         unsafe_allow_html=True,
